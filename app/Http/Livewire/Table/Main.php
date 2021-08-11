@@ -54,6 +54,10 @@ class Main extends Component
     {
         $data = $this->get_pagination_data();
 
+        // echo $name."|".$model;
+        // echo json_encode($data);
+        // die();
+
         return view($data['view'], $data);
     }
 }

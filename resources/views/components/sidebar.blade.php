@@ -29,7 +29,7 @@ $navigation_links = array_to_object($links);
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{ route('dashboard') }}">
-                <img class="d-inline-block" width="32px" height="30.61px" src="" alt="">
+                <img class="d-inline-block" width="32px" height="30.61px" src="./img/serbaDK.png" alt="">
             </a>
         </div>
         @foreach ($navigation_links as $link)
@@ -37,7 +37,7 @@ $navigation_links = array_to_object($links);
             <li class="menu-header">{{ $link->text }}</li>
             @if (!$link->is_multi)
             <li class="{{ Request::routeIs($link->href) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route($link->href) }}"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+                <a class="nav-link" href="{{ route($link->href) }}"><i class="fas fa-fire"></i><span>Main Task</span></a>
             </li>
             @else
                 @foreach ($link->href as $section)

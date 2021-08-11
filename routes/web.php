@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('login');
 });
 
 Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
-    Route::view('/dashboard', "dashboard")->name('dashboard');
+    // Route::view('/dashboard', "dashboard")->name('dashboard');
+    Route::get('/dashboard', [TaskController::class, "index"])->name('dashboard');
 
     Route::get('/user', [ UserController::class, "index_view" ])->name('user');
     Route::view('/user/new', "pages.user.user-new")->name('user.new');
