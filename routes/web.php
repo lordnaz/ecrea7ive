@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,8 @@ Route::get('/', function () {
 Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     // Route::view('/dashboard', "dashboard")->name('dashboard');
     Route::get('/dashboard', [TaskController::class, "index"])->name('dashboard');
+
+    Route::get('/new_job', [ JobController::class, "index" ])->name('new_job');
 
     Route::get('/user', [ UserController::class, "index_view" ])->name('user');
     Route::view('/user/new', "pages.user.user-new")->name('user.new');
