@@ -4,16 +4,27 @@
 <br>
 
 {{-- <div class="row"> --}}
-    <form action="/submit_jti" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
-    <div class="card col-lg-6 col-md-6">
+    <form action="/request_job" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
+    <div class="card col-lg-8 col-md-8">
         <div class="card-header">
-            <h4>Job Details</h4>
+            <h4 class="section-title">Job Details</h4>
             <div class="card-header-action">
-                <a data-collapse="#mycard-collapse" class="btn btn-icon btn-danger" href="#"><i class="fas fa-minus"></i></a>
+                <a data-collapse="#mycard-collapse" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
             </div>
         </div>
         <div class="collapse show" id="mycard-collapse" style="">
             <div class="card-body">
+
+                @if (session('status'))
+                    <div class="alert alert-success alert-dismissible show fade">
+                        <div class="alert-body">
+                            <button class="close" data-dismiss="alert">
+                                <span>×</span>
+                            </button>
+                            {{ session('status') }}
+                        </div>
+                    </div>
+                @endif
 
                 {{-- start here --}}
                 
@@ -91,6 +102,46 @@
                         <input type="text" class="form-control datepicker">
                     </div>
 
+                    <x-jet-section-border />
+                    
+                    <h4 class="section-title">Person In-Charge Details</h4>
+
+                    <br>
+
+                    <div class="alert alert-light">
+                        Change below information, if you wish to change PIC details.
+                    </div>
+
+                    <br>
+                    <div class="form-group">
+                        <label>PIC Name</label>
+                        <input type="text" class="form-control" name="requestor_name">
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="requestor_email">
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Contact No</label>
+                        <input type="text" class="form-control" name="requestor_phone">
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Office No</label>
+                        <input type="text" class="form-control" name="requestor_office">
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea id="address" name="address" rows="3" class="form-control"></textarea>
+                    </div>
+    
+                    <div class="form-group" style="margin-bottom: 70px;">
+                        <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Submit</button>
+                    </div>
+
 
                 {{-- </form> --}}
 
@@ -99,52 +150,6 @@
         </div>
     </div>
 
-    <div class="card col-lg-6 col-md-6">
-        <div class="card-header">
-            <h4>Person In-Charge Details</h4>
-            <div class="card-header-action">
-                <a data-collapse="#mycard-collapse2" class="btn btn-icon btn-danger" href="#"><i class="fas fa-minus"></i></a>
-            </div>
-        </div>
-        <div class="collapse show" id="mycard-collapse2" style="">
- 
-            <div class="card-body">
-                <div class="alert alert-light">
-                    Change below information, if you wish to change PIC details.
-                </div>
-                <br>
-                <div class="form-group">
-                    <label>PIC Name</label>
-                    <input type="text" class="form-control" name="requestor_name">
-                </div>
-
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control" name="requestor_email">
-                </div>
-
-                <div class="form-group">
-                    <label>Contact No</label>
-                    <input type="text" class="form-control" name="requestor_phone">
-                </div>
-
-                <div class="form-group">
-                    <label>Office No</label>
-                    <input type="text" class="form-control" name="requestor_office">
-                </div>
-
-                <div class="form-group">
-                    <label>Address</label>
-                    <textarea id="address" name="address" rows="3" class="form-control"></textarea>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 70px;">
-                    <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Submit</button>
-                </div>
-                
-            </div>
-        </div>
-    </div>
 </form>
 
 

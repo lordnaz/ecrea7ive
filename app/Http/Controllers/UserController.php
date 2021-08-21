@@ -12,4 +12,8 @@ class UserController extends Controller
             'user' => User::class
         ]);
     }
+
+    public function profile (){
+        return view('components.profile_main');
+    }
 }

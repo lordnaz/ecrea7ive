@@ -44,9 +44,9 @@ $navigation_links = array_to_object($links);
                 <a class="nav-link" href="{{ route('new_job') }}"><i class="fas fa-id-badge"></i><span>Request New Job</span></a>
             </li>
 
-            <li class="{{ Request::routeIs('dashboard') ? 'active' : '' }}">
+            {{-- <li class="{{ Request::routeIs('dashboard') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-calendar-plus"></i><span>Book Meeting Slot</span></a>
-            </li>
+            </li> --}}
 
         </ul>
 
