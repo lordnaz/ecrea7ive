@@ -28,6 +28,8 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     Route::get('/new_job', [ JobController::class, "index" ])->name('new_job');
     Route::post('/request_job', [ JobController::class, "request_job" ])->name('request_job');
 
+    Route::get('/tracker', [ JobController::class, "tracker" ])->name('tracker');
+
     Route::get('/profile', [ UserController::class, "profile" ])->name('profile');
 
     Route::get('/user', [ UserController::class, "index_view" ])->name('user');

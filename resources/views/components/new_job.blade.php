@@ -1,3 +1,13 @@
+@php
+
+$user = auth()->user();
+
+$details = Auth::user()->usersdetail;
+
+// var_dump($details);
+
+@endphp
+
 <h2 class="section-title">Request New Job</h2>
 <p class="section-lead text-danger">Job that requires external printing will take at least 3 to 14 business days depending on the job requirement.</p>
 <br>
@@ -30,26 +40,36 @@
                 
                     {{@csrf_field()}}
         
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label>Job Name</label>
-                        <input type="text" class="form-control" name="job_name">
-                    </div>
+                        <input type="text" class="form-control" name="job_name" required>
+                    </div> --}}
         
                     <div class="form-group">
-                        <label>Job Status</label>
-                        <select name="job_status" id="job_status" class="form-control selectric">
-                            <option value="" selected="true" disabled="">Choose Status</option>
-                            <option value="inter_household">Household effects</option>
-                            <option value="inter_office">Office goods</option>
-                            <option value="inter_industry">Industrial Equipment</option>
-                            <option value="inter_vehicle">Vehicle</option>
+                        <label>Job Name</label>
+                        <select name="job_name" id="job_name" class="form-control selectric" required>
+                            <option value="" selected="true" disabled="">Choose Job</option>
+                            <option value="inter_household">Advertisement</option>
+                            <option value="inter_office">Banner</option>
+                            <option value="inter_industry">Brochure</option>
+                            <option value="inter_vehicle">Bunting</option>
+                            <option value="inter_vehicle">Business Card</option>
+                            <option value="inter_vehicle">Door Signage</option>
+                            <option value="inter_vehicle">Envelope</option>
+                            <option value="inter_vehicle">Flyers</option>
+                            <option value="inter_vehicle">Letterhead</option>
+                            <option value="inter_vehicle">Logo</option>
+                            <option value="inter_vehicle">Poster</option>
+                            <option value="inter_vehicle">Rubber Stamp</option>
+                            <option value="inter_vehicle">T-shirt</option>
+                            <option value="inter_vehicle">Door Signage</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <div class="control-label">Job Status</div>
                         <label class="mt-2">
-                            <input type="checkbox" id="packingSwitch" name="packingSwitch" class="custom-switch-input">
+                            <input type="checkbox" id="urgent" name="urgent" class="custom-switch-input">
                             <span class="custom-switch-indicator"></span>
                             <span class="custom-switch-description">URGENT JOB ?</span>
                         </label>
@@ -60,12 +80,12 @@
                         <div class="" style="padding-left: unset; padding-right: unset;">
                             <div class="selectgroup w-100 text-left">
                                 <label class="selectgroup-item">
-                                    <input type="radio" name="radio" value="normal" class="selectgroup-input" checked="">
-                                    <span class="selectgroup-button">Normal</span>
+                                    <input type="radio" name="radio" value="printing" class="selectgroup-input" checked="">
+                                    <span class="selectgroup-button">Printing</span>
                                 </label>
                                 <label class="selectgroup-item">
-                                    <input type="radio" name="radio" value="urgent" class="selectgroup-input">
-                                    <span class="selectgroup-button">Urgent</span>
+                                    <input type="radio" name="radio" value="nonprinting" class="selectgroup-input">
+                                    <span class="selectgroup-button">Non-printing</span>
                                 </label>
                             </div>
                         </div>
@@ -78,7 +98,7 @@
 
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea id="description" name="description" rows="3" class="form-control"></textarea>
+                        <textarea id="description" name="description" rows="3" class="form-control" required></textarea>
                     </div>
 
                     <div class="form-group">
@@ -99,7 +119,7 @@
 
                     <div class="form-group">
                         <label>Dateline</label>
-                        <input type="text" class="form-control datepicker">
+                        <input type="text" class="form-control datepicker" required>
                     </div>
 
                     <x-jet-section-border />
@@ -115,27 +135,27 @@
                     <br>
                     <div class="form-group">
                         <label>PIC Name</label>
-                        <input type="text" class="form-control" name="requestor_name">
+                        <input type="text" class="form-control" name="requestor_name" value="{{$user->name}}" required>
                     </div>
     
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control" name="requestor_email">
+                        <input type="email" class="form-control" name="requestor_email" value="{{$user->email}}" required>
                     </div>
     
                     <div class="form-group">
                         <label>Contact No</label>
-                        <input type="text" class="form-control" name="requestor_phone">
+                        <input type="text" class="form-control" name="requestor_phone" value="{{$details->contact_no}}" required>
                     </div>
     
                     <div class="form-group">
                         <label>Office No</label>
-                        <input type="text" class="form-control" name="requestor_office">
+                        <input type="text" class="form-control" name="requestor_office" value="{{$details->contact_no}}" required>
                     </div>
     
                     <div class="form-group">
                         <label>Address</label>
-                        <textarea id="address" name="address" rows="3" class="form-control"></textarea>
+                        <textarea id="address" name="address" rows="3" class="form-control">{{$details->address}}</textarea>
                     </div>
     
                     <div class="form-group" style="margin-bottom: 70px;">
