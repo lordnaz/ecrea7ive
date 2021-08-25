@@ -6,10 +6,11 @@ $details = Auth::user()->usersdetail;
 
 // var_dump($details);
 
+// die();
+
 @endphp
 
 <h2 class="section-title">Request New Job</h2>
-<p class="section-lead text-danger">Job that requires external printing will take at least 3 to 14 business days depending on the job requirement.</p>
 <br>
 <br>
 
@@ -89,6 +90,7 @@ $details = Auth::user()->usersdetail;
                                 </label>
                             </div>
                         </div>
+                        <p class="text-danger">Job that requires external printing will take at least 3 to 14 business days depending on the job requirement.</p>
                     </div>
 
                     <div class="form-group">
@@ -129,34 +131,47 @@ $details = Auth::user()->usersdetail;
                     <br>
 
                     <div class="alert alert-light">
-                        Change below information, if you wish to change PIC details.
+                        {{-- <small id="passwordHelpBlock" class="form-text text-muted"> --}}
+                            This information will be taken from your profile. If you wish to change the PIC details, please change below information.
+                        {{-- </small> --}}
                     </div>
+                    
 
                     <br>
                     <div class="form-group">
                         <label>PIC Name</label>
-                        <input type="text" class="form-control" name="requestor_name" value="{{$user->name}}" required>
+                        <input type="text" class="form-control" name="requestor_name" value="{{$user->name ?? ''}}" required>
                     </div>
-    
+         
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control" name="requestor_email" value="{{$user->email}}" required>
+                        <input type="email" class="form-control" name="requestor_email" value="{{$user->email ?? ''}}" required>
                     </div>
     
                     <div class="form-group">
                         <label>Contact No</label>
-                        <input type="text" class="form-control" name="requestor_phone" value="{{$details->contact_no}}" required>
+                        <input type="text" class="form-control" name="requestor_phone" value="{{$details->contact_no ?? ''}}" required>
                     </div>
     
                     <div class="form-group">
                         <label>Office No</label>
-                        <input type="text" class="form-control" name="requestor_office" value="{{$details->contact_no}}" required>
+                        <input type="text" class="form-control" name="requestor_office" value="{{$details->contact_no ?? ''}}" required>
                     </div>
     
                     <div class="form-group">
                         <label>Address</label>
-                        <textarea id="address" name="address" rows="3" class="form-control">{{$details->address}}</textarea>
+                        <textarea id="address" name="address" rows="3" class="form-control">{{$details->address ?? ''}}</textarea>
+                        {{-- <small id="passwordHelpBlock" class="form-text text-muted">
+                            Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                        </small> --}}
                     </div>
+
+                    <div class="form-group">
+                        <label>Postcode</label>
+                        <input type="text" class="form-control" name="requestor_postcode" value="{{$details->postcode ?? ''}}" required>
+                    </div>
+
+                    
     
                     <div class="form-group" style="margin-bottom: 70px;">
                         <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Submit</button>

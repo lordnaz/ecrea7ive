@@ -47,11 +47,11 @@ $user = auth()->user();
                 <a class="nav-link" href="{{ route('new_job') }}"><i class="fas fa-id-badge"></i><span>Request New Job</span></a>
             </li>
 
-            @if($user->role == "superadmin")
+            {{-- @if($user->role == "superadmin")
                 <li class="{{ Request::routeIs('new_job') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('new_job') }}"><i class="fas fa-id-badge"></i><span>Create User</span></a>
                 </li>
-            @endif
+            @endif --}}
             
             
 
