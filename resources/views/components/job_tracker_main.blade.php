@@ -12,7 +12,7 @@
     <div>
         {{-- <livewire:create-manpower/> --}}
         {{-- <x-edit-manpower :data="$data"></x-edit-manpower> --}}
-        <x-job_tracker :messages="$post_data"></x-job_tracker>
+        <x-job_tracker :messages="$post_data" :data="$ticket_collection" :ticket="$ticket_id"></x-job_tracker>
     </div>
 </x-app-layout>
 

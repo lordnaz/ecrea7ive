@@ -15,7 +15,7 @@ class CreateUsersDetailsTable extends Migration
     {
         Schema::create('users_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->foreignId('user_id')->index();
             $table->string('company_name');
             $table->string('branch');
             $table->string('department');

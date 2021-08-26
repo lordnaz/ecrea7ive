@@ -14,10 +14,11 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->string('poster_name');
-            $table->string('role');
-            $table->foreignId('created_by')->nullable()->index();
+            $table->id()->index();
+            $table->string('poster_name')->index();
+            $table->string('role')->index();
+            $table->string('ticket_id')->index();
+            $table->foreignId('created_by')->index();
             $table->timestamps();
         });
     }

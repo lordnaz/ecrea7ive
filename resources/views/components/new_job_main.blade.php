@@ -20,7 +20,7 @@
 <script>
     $(document).ready(function () {
         $('.datepicker').daterangepicker({
-            locale: {format: 'DD-MM-YYYY'},
+            locale: {format: 'YYYY-MM-DD'},
             singleDatePicker: true,
         });
 

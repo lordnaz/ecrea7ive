@@ -30,6 +30,7 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     Route::post('/request_job', [ JobController::class, "request_job" ])->name('request_job');
 
     Route::get('/tracker', [ JobController::class, "tracker" ])->name('tracker');
+    Route::get('/ticket/{ticket_id}', [JobController::class, 'ticket'])->name('ticket');
 
     Route::get('/profile', [ UserController::class, "profile" ])->name('profile');
 

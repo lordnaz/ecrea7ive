@@ -8,6 +8,9 @@
 //     // var_dump($message);
 // }
 
+// $ticket_detail =  Auth::user()->usersdetail;
+
+// var_dump($ticket_detail)
 
 @endphp
 
@@ -21,17 +24,28 @@
                   Ticket ID : GADJ172161731
               </div> --}}
 
-              <div class="col">
-                    <div class="hero text-white hero-bg-image hero-bg-parallax" style="background-image: url('assets/img/unsplash/login-bg.jpg');">
+                <div class="col">
+                    <div class="hero bg-light text-dark">
                         <div class="hero-inner">
-                            <h2>Welcome, Nazrul Hanif!</h2>
-                            <p class="lead">Here is your ticket ID <i>GADJ172161731</i> for your references. Use below panel to update and communicate througout the whole processes.</p>
+                            <h2>Welcome</h2>
+                            <p class="lead">Here is your ticket ID <i>{{ $ticket }}</i> for your references. Use below panel to update and communicate througout the whole processes.</p>
                             <div class="mt-4">
-                                <a href="{{ route('new_job') }}" class="btn btn-outline-white btn-lg btn-icon icon-left"><i class="fas fa-plus-circle"></i>Create New Job</a>
+                                <a href="{{ route('new_job') }}" class="btn btn-outline-success btn-lg btn-icon icon-left"><i class="fas fa-plus-circle"></i>Create New Job</a>
+                                <a href="{{ route('new_job') }}" class="btn btn-outline-danger btn-lg btn-icon icon-left" style="margin-left: 5px;"><i class="fas fa-minus-circle" ></i>Cancel This Job</a>
                             </div>
                         </div>
                     </div>
-              </div>
+
+                        {{-- <div class="hero text-white hero-bg-image hero-bg-parallax" style="background-image: url('assets/img/unsplash/login-bg.jpg');">
+                            <div class="hero-inner">
+                                <h2>Welcome, Nazrul Hanif!</h2>
+                                <p class="lead">Here is your ticket ID <i>{{ $ticket }}</i> for your references. Use below panel to update and communicate througout the whole processes.</p>
+                                <div class="mt-4">
+                                    <a href="{{ route('new_job') }}" class="btn btn-outline-white btn-lg btn-icon icon-left"><i class="fas fa-plus-circle"></i>Create New Job</a>
+                                </div>
+                            </div>
+                        </div> --}}
+                </div>
 
               
             {{-- </div> --}}
@@ -46,7 +60,7 @@
       </a> --}}
       <div class="tickets">
         <div class="ticket-items" id="ticket-items">
-            <h1 class="section-title">Job Status</h1>
+            <h1 class="section-title">Ticket Status</h1>
             <br>
             <div class="activities">
                 <div class="activity">
@@ -157,48 +171,67 @@
             </div>
             <div class="ticket-detail">
               <div class="ticket-title">
-                <h4>Name : Advertisement</h4>
+                <h4>Name : {{ $data->job_name }}</h4>
               </div>
+
               <div class="ticket-info">
-                <i>requested by &nbsp;</i><div class="font-weight-600">Nazrul Hanif</div>
-                <div class="bullet"></div>
-                <div class="text-primary font-weight-600">22/8/2021</div>
+                <i>created by &nbsp;</i><div class="font-weight-600">{{ auth()->user()->find($data->created_by)->name }}</div>
+                {{-- <div class="bullet"></div> --}}
+                <i>&nbsp;at &nbsp;</i><div class="text-primary font-weight-600">{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y g:i:s a')}}</div>
               </div>
+              {{-- <br>
+              <span class="badge badge-pill badge-warning text-dark">{{ $ticket }}</span> --}}
             </div>
           </div>
           <div class="ticket-divider"></div>
 
           <div class="ticket-description">
+
+            <h1 class="section-title">Ticket Information</h1>
+            <br>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4" class="text-primary">Ticket Status</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->ticket_status }}" placeholder="Email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4" class="text-primary">Ticket ID</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $ticket }}" placeholder="Password">
+                </div>
+            </div>
+
+            <div class="ticket-divider"></div>
+
             <h1 class="section-title">Job Details</h1>
             <br>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4" class="text-primary">Status</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="Urgent" placeholder="Email">
+                    <label for="inputEmail4" class="text-primary">Job Status</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->job_status }}" placeholder="Email">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4" class="text-primary">Job Type</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="Non-Printing" placeholder="Password">
+                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $data->job_type }}" placeholder="Password">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4" class="text-primary">Delivery Type</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="Self-Pickup" placeholder="Email">
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->delivery_type }}" placeholder="Email">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4" class="text-primary">Dateline</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="25/8/2021" placeholder="Email">
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->dateline }}" placeholder="Email">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4" class="text-primary">References (If any)</label>
-                    <input type="text" readonly class="form-control-plaintext" value="VAX12311193812" id="inputEmail4" placeholder="Email">
+                    <input type="text" readonly class="form-control-plaintext" value="{{ $data->references }}" id="inputEmail4" placeholder="Email">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4" class="text-primary">Description</label>
-                    <textarea id="description" name="description" rows="3" class="form-control-plaintext" readonly placeholder="Description">Pick at lobby</textarea>
+                    <textarea id="description" name="description" rows="3" class="form-control-plaintext" readonly placeholder="Description">{{ $data->description }}</textarea>
                 </div>
             </div>
 
@@ -209,32 +242,32 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4" class="text-primary">Name</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="Nazrul Hanif" placeholder="Email">
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->pic_name }}" placeholder="Email">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4" class="text-primary">Email</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="naz.anip92@gmail.com" placeholder="Password">
+                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $data->pic_email }}" placeholder="Password">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4" class="text-primary">Contact No</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="0193140901" placeholder="Email">
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->pic_contact_no }}" placeholder="Email">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4" class="text-primary">Office No</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="0193140901" placeholder="Password">
+                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $data->pic_office_no }}" placeholder="Password">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="address" class="text-primary">Address</label>
-                <textarea id="address" name="address" rows="3" class="form-control-plaintext" readonly placeholder="Address">R-2-15 Apt Dahlia, Tmn Bunga Raya, Bukit Beruntung, 48300 Rawang, Selangor</textarea>
+                <textarea id="address" name="address" rows="3" class="form-control-plaintext" readonly placeholder="Address">{{ $data->pic_address }}</textarea>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="postcode" class="text-primary">Postcode</label>
-                    <input type="text" readonly class="form-control-plaintext" id="postcode" value="40150" placeholder="Postcode">
+                    <input type="text" readonly class="form-control-plaintext" id="postcode" value="{{ $data->pic_postcode }}" placeholder="Postcode">
                 </div>
             </div>
             
@@ -263,6 +296,7 @@
 
                     <form method="POST" action="{{ route('post_message') }}">
                         @csrf
+                        <input type="text" class="form-control" name="post_ticket_id" value="{{ $ticket }}" hidden>
 
                         @trix(\App\Post::class, 'content', [ 'hideTools' => ['block-tools'] ])
 
