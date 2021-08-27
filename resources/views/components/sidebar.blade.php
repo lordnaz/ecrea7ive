@@ -24,6 +24,7 @@ $navigation_links = array_to_object($links);
 
 $role = auth()->user()->role;
 #echo request();
+$user = auth()->user();
 
 @endphp
 
@@ -82,6 +83,14 @@ $role = auth()->user()->role;
                 <a class="nav-link" href="{{ route('help_center') }}"><i class="fas fa-question-circle"></i><span>Help Center</span></a>
             </li>
 
+
+            {{-- @if($user->role == "superadmin")
+                <li class="{{ Request::routeIs('new_job') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('new_job') }}"><i class="fas fa-id-badge"></i><span>Create User</span></a>
+                </li>
+            @endif --}}
+            
+            
 
             {{-- <li class="{{ Request::routeIs('dashboard') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-calendar-plus"></i><span>Book Meeting Slot</span></a>

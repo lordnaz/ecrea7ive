@@ -1,5 +1,16 @@
+@php
+
+$user = auth()->user();
+
+$details = Auth::user()->usersdetail;
+
+// var_dump($details);
+
+// die();
+
+@endphp
+
 <h2 class="section-title">Request New Job</h2>
-<p class="section-lead text-danger">Job that requires external printing will take at least 3 to 14 business days depending on the job requirement.</p>
 <br>
 <br>
 
@@ -16,7 +27,7 @@
             <div class="card-body">
 
                 @if (session('status'))
-                    <div class="alert alert-success alert-dismissible show fade">
+                    <div class="alert alert-danger alert-dismissible show fade">
                         <div class="alert-body">
                             <button class="close" data-dismiss="alert">
                                 <span>×</span>
@@ -30,26 +41,36 @@
                 
                     {{@csrf_field()}}
         
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label>Job Name</label>
-                        <input type="text" class="form-control" name="job_name">
-                    </div>
+                        <input type="text" class="form-control" name="job_name" required>
+                    </div> --}}
         
                     <div class="form-group">
-                        <label>Job Status</label>
-                        <select name="job_status" id="job_status" class="form-control selectric">
-                            <option value="" selected="true" disabled="">Choose Status</option>
-                            <option value="inter_household">Household effects</option>
-                            <option value="inter_office">Office goods</option>
-                            <option value="inter_industry">Industrial Equipment</option>
-                            <option value="inter_vehicle">Vehicle</option>
+                        <label>Job Name</label>
+                        <select name="job_name" id="job_name" class="form-control selectric" required>
+                            <option value="" selected="true" disabled="">Choose Job</option>
+                            <option value="Advertisement">Advertisement</option>
+                            <option value="Banner">Banner</option>
+                            <option value="Brochure">Brochure</option>
+                            <option value="Bunting">Bunting</option>
+                            <option value="Business Card">Business Card</option>
+                            <option value="Door Signage">Door Signage</option>
+                            <option value="Envelope">Envelope</option>
+                            <option value="Flyers">Flyers</option>
+                            <option value="Letterhead">Letterhead</option>
+                            <option value="Logo">Logo</option>
+                            <option value="Poster">Poster</option>
+                            <option value="Rubber Stamp">Rubber Stamp</option>
+                            <option value="T-shirt">T-shirt</option>
+                            <option value="Door Signage">Door Signage</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <div class="control-label">Job Status</div>
                         <label class="mt-2">
-                            <input type="checkbox" id="packingSwitch" name="packingSwitch" class="custom-switch-input">
+                            <input type="checkbox" id="job_status" name="job_status" class="custom-switch-input">
                             <span class="custom-switch-indicator"></span>
                             <span class="custom-switch-description">URGENT JOB ?</span>
                         </label>
@@ -60,25 +81,26 @@
                         <div class="" style="padding-left: unset; padding-right: unset;">
                             <div class="selectgroup w-100 text-left">
                                 <label class="selectgroup-item">
-                                    <input type="radio" name="radio" value="normal" class="selectgroup-input" checked="">
-                                    <span class="selectgroup-button">Normal</span>
+                                    <input type="radio" name="job_type" value="Printing" class="selectgroup-input" checked="">
+                                    <span class="selectgroup-button">Printing</span>
                                 </label>
                                 <label class="selectgroup-item">
-                                    <input type="radio" name="radio" value="urgent" class="selectgroup-input">
-                                    <span class="selectgroup-button">Urgent</span>
+                                    <input type="radio" name="job_type" value="Non-Printing" class="selectgroup-input">
+                                    <span class="selectgroup-button">Non-printing</span>
                                 </label>
                             </div>
                         </div>
+                        <p class="text-danger">Job that requires external printing will take at least 3 to 14 business days depending on the job requirement.</p>
                     </div>
 
                     <div class="form-group">
                         <label>References (If any)</label>
-                        <input type="text" class="form-control" name="job_name">
+                        <input type="text" class="form-control" name="references">
                     </div>
 
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea id="description" name="description" rows="3" class="form-control"></textarea>
+                        <textarea id="description" name="description" rows="3" class="form-control" required></textarea>
                     </div>
 
                     <div class="form-group">
@@ -86,11 +108,11 @@
                         <div class="" style="padding-left: unset; padding-right: unset;">
                             <div class="selectgroup w-100 text-left">
                                 <label class="selectgroup-item">
-                                    <input type="radio" name="radio2" value="delivery" class="selectgroup-input" checked="">
+                                    <input type="radio" name="delivery_type" value="Delivery" class="selectgroup-input" checked="">
                                     <span class="selectgroup-button">Delivery</span>
                                 </label>
                                 <label class="selectgroup-item">
-                                    <input type="radio" name="radio2" value="self_pickup" class="selectgroup-input">
+                                    <input type="radio" name="delivery_type" value="Self-Pickup" class="selectgroup-input">
                                     <span class="selectgroup-button">Self-Pickup</span>
                                 </label>
                             </div>
@@ -99,7 +121,7 @@
 
                     <div class="form-group">
                         <label>Dateline</label>
-                        <input type="text" class="form-control datepicker">
+                        <input type="text" name="dateline" class="form-control datepicker" required>
                     </div>
 
                     <x-jet-section-border />
@@ -109,34 +131,47 @@
                     <br>
 
                     <div class="alert alert-light">
-                        Change below information, if you wish to change PIC details.
+                        {{-- <small id="passwordHelpBlock" class="form-text text-muted"> --}}
+                            This information will be taken from your profile. If you wish to change the PIC details, please change below information.
+                        {{-- </small> --}}
                     </div>
+                    
 
                     <br>
                     <div class="form-group">
                         <label>PIC Name</label>
-                        <input type="text" class="form-control" name="requestor_name">
+                        <input type="text" class="form-control" name="pic_name" value="{{$user->name ?? ''}}" required>
                     </div>
-    
+         
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control" name="requestor_email">
+                        <input type="email" class="form-control" name="pic_email" value="{{$user->email ?? ''}}" required>
                     </div>
     
                     <div class="form-group">
                         <label>Contact No</label>
-                        <input type="text" class="form-control" name="requestor_phone">
+                        <input type="text" class="form-control" name="pic_contact_no" value="{{$details->contact_no ?? ''}}" required>
                     </div>
     
                     <div class="form-group">
                         <label>Office No</label>
-                        <input type="text" class="form-control" name="requestor_office">
+                        <input type="text" class="form-control" name="pic_office_no" value="{{$details->contact_no ?? ''}}">
                     </div>
     
                     <div class="form-group">
                         <label>Address</label>
-                        <textarea id="address" name="address" rows="3" class="form-control"></textarea>
+                        <textarea id="address" name="pic_address" rows="3" class="form-control" required>{{$details->address ?? ''}}</textarea>
+                        {{-- <small id="passwordHelpBlock" class="form-text text-muted">
+                            Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                        </small> --}}
                     </div>
+
+                    <div class="form-group">
+                        <label>Postcode</label>
+                        <input type="text" class="form-control" name="pic_postcode" value="{{$details->postcode ?? ''}}" required>
+                    </div>
+
+                    
     
                     <div class="form-group" style="margin-bottom: 70px;">
                         <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Submit</button>

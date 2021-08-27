@@ -8,6 +8,7 @@ use App\Http\Controllers\RegisterLeavesController;
 use App\Http\Controllers\HelpCenterController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\JobHistoryController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,9 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     Route::get('/new_job', [ JobController::class, "index" ])->name('new_job');
     Route::post('/request_job', [ JobController::class, "request_job" ])->name('request_job');
 
+    Route::get('/tracker', [ JobController::class, "tracker" ])->name('tracker');
+    Route::get('/ticket/{ticket_id}', [JobController::class, 'ticket'])->name('ticket');
+
     Route::get('/profile', [ UserController::class, "profile" ])->name('profile');
 
     Route::get('/user', [ UserController::class, "index_view" ])->name('user');
@@ -56,4 +60,19 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     Route::get('/inventory', [ InventoryController::class, "index" ])->name('inventory');
 
     Route::get('/job_history_main', [ JobHistoryController::class, "index" ])->name('job_history_main');
+    
+
+    Route::post('/post_message', [ PostController::class, "post_message" ])->name('post_message');
+
+    // job status 
+    Route::get('/acknowledged/{ticket_id}', [ JobController::class, "acknowledged" ])->name('acknowledged');
+    Route::get('/prepared/{ticket_id}', [ JobController::class, "prepared" ])->name('prepared');
+    Route::get('/approved/{ticket_id}', [ JobController::class, "approved" ])->name('approved');
+    Route::get('/received/{ticket_id}', [ JobController::class, "received" ])->name('received');
+    Route::get('/closed/{ticket_id}', [ JobController::class, "closed" ])->name('closed');
+
+    // assign printer 
+    Route::post('/assign_printer/{ticket_id}', [ JobController::class, "assign_printer" ])->name('assign_printer');
+    
+    
 });

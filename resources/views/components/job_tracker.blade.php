@@ -1,0 +1,419 @@
+@php
+
+// $user = auth()->user();
+
+// $details = Post::post()->trix('content');
+
+// if($message){
+//     // var_dump($message);
+// }
+
+// $ticket_detail =  Auth::user()->usersdetail;
+
+// var_dump($ticket_detail)
+
+$role = strtoupper(auth()->user()->role);
+// $uuid = auth()->user()->id;
+
+@endphp
+
+<div class="card">
+    <div class="card-header">
+      {{-- <h4 class="section-title">Ticket ID : GADJ172161731</h4> --}}
+      <div class="container-fluid">
+        <div class="row">
+            {{-- <div class="col"> --}}
+              {{-- <div class="alert col alert-primary font-weight-bold text-center">
+                  Ticket ID : GADJ172161731
+              </div> --}}
+
+                <div class="col">
+                    <div class="hero bg-whitesmoke text-dark border">
+                        <div class="hero-inner">
+                            <h2>Welcome</h2>
+                            <p class="lead">Here is your ticket ID <i>{{ $ticket }}</i> for your references. Use below panel to update and communicate througout the whole processes.</p>
+                            <div class="mt-4">
+                                <a href="{{ route('new_job') }}" class="btn btn-outline-success btn-lg btn-icon icon-left">
+                                    <i class="fas fa-plus-circle"></i>Create New Job
+                                </a>
+                                @if ($data->ticket_status == "CREATED")
+                                    <a href="{{ route('new_job') }}" class="btn btn-outline-danger btn-lg btn-icon icon-left" style="margin-left: 5px;">
+                                        <i class="fas fa-minus-circle" ></i>Cancel This Job
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+              
+            {{-- </div> --}}
+        </div>
+      </div>
+      
+        
+    </div>
+    <div class="card-body">
+      {{-- <a href="#" class="btn btn-primary btn-icon icon-left btn-lg btn-block mb-4 d-md-none" data-toggle-slide="#ticket-items">
+        <i class="fas fa-list"></i> All Tickets
+      </a> --}}
+      <div class="tickets">
+        <div class="ticket-items" id="ticket-items">
+            <h1 class="section-title">Ticket Status</h1>
+            <br>
+            <div class="activities">
+                <div class="activity">
+                    <div class="activity-icon bg-danger text-white shadow-danger">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="activity-detail border bg-whitesmoke">
+                        <div class="mb-2">
+                            <span class="text-job"><b>STEP 1</b></span>
+                        </div>
+                        <p><span class="text-primary font-weight-bold">Created</span>. Waiting for designer to accept job.</p>
+                        
+                        @if ($data->ticket_status == "CREATED" && $role == "ADMIN")
+                            <div class="ticket-divider"></div>
+                            <div class="text-center">
+                                <a href="{{route('acknowledged', $data->ticket_id)}}" class="btn btn-success">
+                                    Acknowledge
+                                </a>
+                            </div>
+                        @endif
+                        
+                    </div>
+                </div>
+
+                <div class="activity">
+                    @if ($data->ticket_status == "CREATED")
+                        <div class="activity-icon bg-secondary text-white shadow-secondary">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    @else 
+                        <div class="activity-icon bg-danger text-white shadow-danger">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    @endif
+                    
+                    <div class="activity-detail border bg-whitesmoke">
+                        <div class="mb-2">
+                            <span class="text-job"><b>STEP 2</b></span>
+                        </div>
+                        <p><span class="text-primary font-weight-bold">Acknowledge</span>. Designer preparing the artwork & design.</p>
+                        
+                        <div class="ticket-divider"></div>
+                        @if ($data->ticket_status == "ACKNOWLEDGE" && $role == "ADMIN")
+                            <div class="ticket-divider"></div>
+                            <div class="text-center">
+                                <a href="{{route('prepared', $data->ticket_id)}}" class="btn btn-success">
+                                    Artwork Prepared
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="activity">
+                    @if ($data->ticket_status == "REVIEW" || $data->ticket_status == "APPROVED" || $data->ticket_status == "RECEIVED" || $data->ticket_status == "CLOSED")
+                        <div class="activity-icon bg-danger text-white shadow-danger">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    @else 
+                        <div class="activity-icon bg-secondary text-white shadow-secondary">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    @endif
+
+                    <div class="activity-detail border bg-whitesmoke">
+                        <div class="mb-2">
+                            <span class="text-job"><b>STEP 3</b></span>
+                        </div>
+                        <p><span class="text-primary font-weight-bold">Reviewing</span>. Artwork review & approval processes undergoing.</p>
+
+                        <div class="ticket-divider"></div>
+
+                        @if ($data->ticket_status == "REVIEW" && $role == "USER")
+                            <div class="ticket-divider"></div>
+                            <div class="text-center">
+                                <a href="{{route('approved', $data->ticket_id)}}" class="btn btn-primary">
+                                    Approve Design
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                
+                <div class="activity">
+                    @if ($data->ticket_status == "APPROVED" || $data->ticket_status == "RECEIVED" || $data->ticket_status == "CLOSED")
+                        <div class="activity-icon bg-danger text-white shadow-danger">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    @else 
+                        <div class="activity-icon bg-secondary text-white shadow-secondary">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    @endif
+                    <div class="activity-detail border bg-whitesmoke">
+                        <div class="mb-2">
+                            <span class="text-job"><b>STEP 4</b></span>
+                        </div>
+                        <p><span class="text-primary font-weight-bold">Delivery/Collection</span>. Design approved by client, now preparation task for final release.</p>
+
+                        <div class="ticket-divider"></div>
+                        @if ($data->ticket_status == "APPROVED" && $role == "USER")
+                            <div class="ticket-divider"></div>
+                            <div class="text-center">
+                                <a href="{{route('received', $data->ticket_id)}}" class="btn btn-primary">
+                                    Item Received
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="activity">
+                    @if ($data->ticket_status == "RECEIVED" || $data->ticket_status == "CLOSED")
+                        <div class="activity-icon bg-danger text-white shadow-danger">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    @else 
+                        <div class="activity-icon bg-secondary text-white shadow-secondary">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    @endif
+                    <div class="activity-detail border bg-whitesmoke">
+                        <div class="mb-2">
+                            <span class="text-job"><b>STEP 5</b></span>
+                        </div>
+                        <p><span class="text-primary font-weight-bold">Complete</span>. Order received and closed. Thank You!</p>
+
+                        <div class="ticket-divider"></div>
+                        @if ($data->ticket_status == "RECEIVED" && $role == "ADMIN")
+                            <div class="ticket-divider"></div>
+                            <div class="text-center">
+                                <a href="{{route('closed', $data->ticket_id)}}" class="btn btn-success">
+                                    Close Ticket
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ticket-content">
+          <div class="ticket-header">
+            <div class="ticket-sender-picture img-shadow">
+              <img src="../assets/img/products/product-4-50.png" alt="image">
+            </div>
+            <div class="ticket-detail">
+              <div class="ticket-title">
+                <h4>Name : {{ $data->job_name }}</h4>
+              </div>
+
+              <div class="ticket-info">
+                <i>created by &nbsp;</i><div class="font-weight-600">{{ auth()->user()->find($data->created_by)->name }}</div>
+                {{-- <div class="bullet"></div> --}}
+                <i>&nbsp;at &nbsp;</i><div class="text-primary font-weight-600">{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y g:i:s a')}}</div>
+              </div>
+              {{-- <br>
+              <span class="badge badge-pill badge-warning text-dark">{{ $ticket }}</span> --}}
+            </div>
+          </div>
+          <div class="ticket-divider"></div>
+
+          <div class="ticket-description">
+
+            <h1 class="section-title">Ticket Information</h1>
+            <br>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4" class="text-primary">Ticket Status</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->ticket_status }}" placeholder="Email">
+                    <small class="text-muted">You can cancel job with CREATED ticket status</small>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4" class="text-primary">Ticket ID</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $ticket }}" placeholder="Password">
+                </div>
+            </div>
+
+            <div class="ticket-divider"></div>
+
+            <h1 class="section-title">Job Details</h1>
+            <br>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4" class="text-primary">Job Status</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->job_status }}" placeholder="Email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4" class="text-primary">Job Type</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $data->job_type }}" placeholder="Password">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4" class="text-primary">Delivery Type</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->delivery_type }}" placeholder="Email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4" class="text-primary">Dateline</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->dateline }}" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4" class="text-primary">References (If any)</label>
+                    <input type="text" readonly class="form-control-plaintext" value="{{ $data->references }}" id="inputEmail4" placeholder="Email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4" class="text-primary">Description</label>
+                    <textarea id="description" name="description" rows="3" class="form-control-plaintext" readonly placeholder="Description">{{ $data->description }}</textarea>
+                </div>
+            </div>
+
+            <div class="ticket-divider"></div>
+
+            <h1 class="section-title">Person In-Charge Details</h1>
+            <br>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4" class="text-primary">Name</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->pic_name }}" placeholder="Email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4" class="text-primary">Email</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $data->pic_email }}" placeholder="Password">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4" class="text-primary">Contact No</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->pic_contact_no }}" placeholder="Email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4" class="text-primary">Office No</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $data->pic_office_no }}" placeholder="Password">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="address" class="text-primary">Address</label>
+                <textarea id="address" name="address" rows="3" class="form-control-plaintext" readonly placeholder="Address">{{ $data->pic_address }}</textarea>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="postcode" class="text-primary">Postcode</label>
+                    <input type="text" readonly class="form-control-plaintext" id="postcode" value="{{ $data->pic_postcode }}" placeholder="Postcode">
+                </div>
+            </div>
+
+            @if ($role == "ADMIN" && $data->active == 1)
+                <div class="form-group">
+                    <div class="control-label">If you wished to assign printing job to external.</div>
+                    <label class="mt-2">
+                        <input type="checkbox" id="printerSwitch" name="printerSwitch" class="custom-switch-input">
+                        <span class="custom-switch-indicator"></span>
+                        <span class="custom-switch-description">Assign to External Printer</span>
+                    </label>
+                </div>
+
+                <div id="panel_printer">
+                    
+                    <h1 class="section-title">Printer Assignee</h1>
+                    <br>
+
+                    <form method="POST" action="{{ route('assign_printer', $data->ticket_id) }}">
+                        @csrf
+
+                        <div class="form-group col-md-6">
+                            <label for="assignto" class="block text-sm font-medium text-gray-700">Assign to (Printer)</label>
+
+                            <select id="printer_assign" name="printer_assign" class="form-control selectric">
+                                <option value="" selected="true" disabled="">Select Printer</option>
+                                @foreach($printers as $printer)
+                                    <option value="{{ $printer->id }}" @if($printer->id == $data->printer) selected @endif>{{ $printer->name }}</option>
+                                @endforeach
+                            </select>
+
+                            <div class="text-right" style="margin-top: 15px;">
+                                <button type="submit" class="btn btn-warning text-dark">
+                                    Assign
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="ticket-divider"></div>
+                </div>
+            @endif
+            
+            {{-- <div class="ticket-divider"></div> --}}
+
+            <div class="card border-0 shadow-none">
+                <div class="card-header">
+                  <h4 class="section-title">Ticket Activities</h4>
+                </div>
+                <div class="card-body">
+
+                    @if ($data->active == 1)
+                        <form method="POST" action="{{ route('post_message') }}">
+                            @csrf
+                            <input type="text" class="form-control" name="post_ticket_id" value="{{ $ticket }}" hidden>
+
+                            @trix(\App\Post::class, 'content', [ 'hideTools' => ['block-tools'] ])
+
+                            <div class="form-group text-right" style="margin-top: 15px;">
+                                <button type="submit" class="btn btn-primary">
+                                    Reply
+                                </button>
+                            </div>
+                        </form>
+
+                    @else
+                        <div class="alert alert-light">
+                            Communication are BLOCKED once the ticket has been <b>CLOSED</b>
+                        </div>
+                    @endif
+                    
+
+                    <div class="ticket-divider"></div>
+
+                  <ul class="list-unstyled list-unstyled-border" style="margin-top: 15px;">
+
+                    @foreach ($messages as $message)
+
+                        <li class="media">
+                            @if ($message->role == 'user')
+                                <img class="mr-3 rounded-circle" width="30" src="../assets/img/avatar/avatar-1.png" alt="avatar">
+                            @elseif($message->role == 'printer')
+                                <img class="mr-3 rounded-circle" width="30" src="../assets/img/avatar/avatar-4.png" alt="avatar">
+                            @else
+                                <img class="mr-3 rounded-circle" width="30" src="../assets/img/avatar/avatar-2.png" alt="avatar">
+                            @endif
+                            <div class="media-body">
+                                <div class="float-right text-primary"><i class="text-small text-muted">{{ \Carbon\Carbon::parse($message->created_at)->diffForHumans()}}</i></div>
+                                <div class="media-title">{{ $message->poster_name }}</div>
+                                <span class="text-small text-muted">
+                                    {!! $message->content !!}
+                                </span>
+                            </div>
+                        </li>
+                        
+                    @endforeach
+
+                    
+                  </ul>
+
+                  {{-- <div class="ticket-divider"></div> --}}
+
+                </div>
+              </div>
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -11,6 +11,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+// use App\Models\UserDetail;
 
 class User extends Authenticatable
 {
@@ -71,6 +72,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Get the details associated with the user.
+     */
+    public function usersdetail()
+    {
+        return $this->hasOne(UsersDetail::class, 'user_id');
+    }
 
     /**
      * Search query in multiple whereOr
