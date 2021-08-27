@@ -1,17 +1,22 @@
-{{-- <h2 class="section-title">Request New Job</h2>
-<p class="section-lead text-danger">Job that requires external printing will take at least 3 to 14 business days depending on the job requirement.</p>
+<!-- <h2 class="section-title">Register Leaves</h2> -->
+
 <br>
-<br> --}}
+<br>
+@php
+$role = auth()->user()->role;
+#echo request();
+@endphp
+
 
 {{-- <div class="row"> --}}
     <div class="card col-lg-8 col-md-8">
         <div class="card-header">
-            <h4 class="section-title">Profile Information</h4>
+            <h4 class="section-title">New Stock Purchase</h4>
             <div class="card-header-action">
-                <a data-collapse="#mycard-collapse" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
+                <a data-collapse="#mycard-collapse2" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
             </div>
         </div>
-        <div class="collapse show" id="mycard-collapse" style="">
+        <div class="collapse show" id="mycard-collapse2" style="">
             <div class="card-body">
 
                 @if (session('status'))
@@ -26,39 +31,36 @@
                 @endif
 
                 {{-- start here --}}
-                <form action="/request_job" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
+                <form action="/inventory" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
                 
                     {{@csrf_field()}}
 
                     <div class="alert alert-light">
-                        Change below information, if you wish to change PIC details.
+                        Insert new stock purchase information below.
                     </div>
 
                     <br>
-        
+                    @if ($role =="superadmin")
                     <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" name="name">
+                        <label>Item Name</label>
+                        <input type="text" class="form-control" name="email">
                     </div>
-
                     <div class="form-group">
-                        <label>Email</label>
+                        <label>Quantity</label>
+                        <input type="text" class="form-control" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Price (RM)</label>
                         <input type="text" class="form-control" name="email">
                     </div>
 
                     <div class="form-group">
-                        <label>Role</label>
-                        <input type="text" class="form-control" name="role">
+                        <label>Description</label>
+                        <textarea id="description" name="description" rows="3" class="form-control"></textarea>
                     </div>
-
-                    <div class="form-group">
-                        <label>Mobile No</label>
-                        <input type="text" class="form-control" name="mobile_no">
-                    </div>
-
-                    
-              
-
+                   
+                    @endif
+            
 
 
         
@@ -81,4 +83,36 @@
 
 
 {{-- </div> --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -73,4 +73,5 @@ class CreateUser extends Component
     {
         return view('livewire.create-user');
     }
+    
 }

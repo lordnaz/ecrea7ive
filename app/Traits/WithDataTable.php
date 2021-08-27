@@ -46,6 +46,66 @@ trait WithDataTable {
                 ];
                 break;
 
+                case 'pendingMeeting':
+                    $pendingMeetings = $this->model::search($this->search)
+                        ->orderBy($this->sortField, $this->sortAsc ? 'desc' : 'asc')
+                        ->paginate($this->perPage);
+    
+                    return [
+                        "view" => 'livewire.table.pendingMeeting',
+                        "pendingMeetings" => $pendingMeetings,
+                        "data" => array_to_object([
+
+                        ])
+                    ];
+                    break;
+
+                case 'leaveApplication':
+                    $leaveApplications = $this->model::search($this->search)
+                        ->orderBy($this->sortField, $this->sortAsc ? 'desc' : 'asc')
+                        ->paginate($this->perPage);
+        
+                    return [
+                         "view" => 'livewire.table.leaveApplication',
+                            "leaveApplications" => $leaveApplications,
+                            "data" => array_to_object([
+                                'href' => [
+                                    
+                                ]
+                            ])
+                        ];
+                    break;
+                    case 'inventory':
+                        $inventorys = $this->model::search($this->search)
+                            ->orderBy($this->sortField, $this->sortAsc ? 'desc' : 'asc')
+                            ->paginate($this->perPage);
+            
+                        return [
+                             "view" => 'livewire.table.inventory',
+                                "inventorys" => $inventorys,
+                                "data" => array_to_object([
+                                    'href' => [
+
+                                    ]
+                                ])
+                            ];
+                        break;
+                        case 'requestMeeting':
+                            $requestMeetings = $this->model::search($this->search)
+                                ->orderBy($this->sortField, $this->sortAsc ? 'desc' : 'asc')
+                                ->paginate($this->perPage);
+                
+                            return [
+                                 "view" => 'livewire.table.requestMeeting',
+                                    "requestMeetings" => $requestMeetings,
+                                    "data" => array_to_object([
+                                        'href' => [
+    
+                                        ]
+                                    ])
+                                ];
+                            break;
+
             default:
                 # code...
                 break;

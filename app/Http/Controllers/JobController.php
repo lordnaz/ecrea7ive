@@ -23,4 +23,5 @@ class JobController extends Controller
         // return redirect()->back()->with('alert', 'Updated!');
         // return redirect('/new_job')->with('status', 'Profile updated!');
     }
+    
 }

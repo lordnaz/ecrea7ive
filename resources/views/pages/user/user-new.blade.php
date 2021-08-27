@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header_content">
-        <h1>{{ __('Buat User Baru') }}</h1>
+        <h1>{{ __('Create New User') }}</h1>
 
         <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
@@ -10,6 +10,6 @@
     </x-slot>
 
     <div>
-        <livewire:create-user action="createUser" />
+        <livewire:create-user action="create-user" />
     </div>
 </x-app-layout>

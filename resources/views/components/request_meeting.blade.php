@@ -1,17 +1,25 @@
-{{-- <h2 class="section-title">Request New Job</h2>
-<p class="section-lead text-danger">Job that requires external printing will take at least 3 to 14 business days depending on the job requirement.</p>
-<br>
-<br> --}}
+<!-- <h2 class="section-title">Register Leaves</h2> -->
 
-{{-- <div class="row"> --}}
-    <div class="card col-lg-8 col-md-8">
+<br>
+<br>
+@php
+$role = auth()->user()->role;
+$name = auth()->user()->name;
+#echo request();
+@endphp
+
+
+<div class="col-lg-5 col-md-12 col-12 col-sm-12">
+              
+
+{{-- <div class="card col-lg-6 col-md-6"> --}}
         <div class="card-header">
-            <h4 class="section-title">Profile Information</h4>
+            <h4 class="section-title">Meeting Request Information</h4>
             <div class="card-header-action">
-                <a data-collapse="#mycard-collapse" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
+                <a data-collapse="#mycard-collapse2" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
             </div>
         </div>
-        <div class="collapse show" id="mycard-collapse" style="">
+        <div class="collapse show" id="mycard-collapse2" style="">
             <div class="card-body">
 
                 @if (session('status'))
@@ -26,40 +34,40 @@
                 @endif
 
                 {{-- start here --}}
-                <form action="/request_job" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
+                <form action="/request_meeting" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
                 
                     {{@csrf_field()}}
 
                     <div class="alert alert-light">
-                        Change below information, if you wish to change PIC details.
+                        Insert request meeting information below.
                     </div>
+
+        
+
 
                     <br>
-        
+
                     <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" name="name">
+                        <label>Meeting Subject</label>
+                        <input type="text" class="form-control" name="subject ">
                     </div>
 
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="text" class="form-control" name="email">
+                        <label>Description</label>
+                        <textarea id="description" name="description" rows="3" class="form-control"></textarea>
                     </div>
-
-                    <div class="form-group">
-                        <label>Role</label>
-                        <input type="text" class="form-control" name="role">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Mobile No</label>
-                        <input type="text" class="form-control" name="mobile_no">
-                    </div>
-
                     
-              
-
-
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" class="form-control" name="department ">
+                    </div>
+                   
+                   
+            
+                    <div class="form-group">
+                        <label>Start Date and End Date</label>
+                        <input type="text" class="form-control daterange" name="datetime">
+                    </div>
 
         
                     
@@ -79,6 +87,42 @@
 
 
 
+ 
+           
+
+
+
+    
+
 
 {{-- </div> --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -1,54 +1,91 @@
-<div id="form-create">
-    <x-jet-form-section :submit="$action" class="mb-4">
-        <x-slot name="title">
-            {{ __('User') }}
-        </x-slot>
 
-        <x-slot name="description">
-            {{ __('Lengkapi data berikut dan submit untuk membuat data user baru') }}
-        </x-slot>
 
-        <x-slot name="form">
-            <div class="form-group col-span-6 sm:col-span-5">
-                <x-jet-label for="name" value="{{ __('Nama') }}" />
-                <small>Nama Lengkap Akun</small>
-                <x-jet-input id="name" type="text" class="mt-1 block w-full form-control shadow-none" wire:model.defer="user.name" />
-                <x-jet-input-error for="user.name" class="mt-2" />
+{{-- <div class="row"> --}}
+    <div class="card col-lg-8 col-md-8">
+        <div class="card-header">
+            <h4 class="section-title">Create User Information</h4>
+            <div class="card-header-action">
+                <a data-collapse="#mycard-collapse" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
             </div>
+        </div>
+        <div class="collapse show" id="mycard-collapse" style="">
+            <div class="card-body">
 
-            <div class="form-group col-span-6 sm:col-span-5">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" type="text" class="mt-1 block w-full form-control shadow-none" wire:model.defer="user.email" />
-                <x-jet-input-error for="user.email" class="mt-2" />
+                @if (session('status'))
+                    <div class="alert alert-success alert-dismissible show fade">
+                        <div class="alert-body">
+                            <button class="close" data-dismiss="alert">
+                                <span>×</span>
+                            </button>
+                            {{ session('status') }}
+                        </div>
+                    </div>
+                @endif
+
+                {{-- start here --}}
+                <form action="/createUser" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
+                
+                    {{@csrf_field()}}
+
+                    <div class="alert alert-light">
+                        Insert new user information below.
+                    </div>
+
+                    <br>
+        
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" name="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+
+                    <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="password" name="password" wire:model.defer="state.password" autocomplete="password">
+                    <input-error for="password" class="mt-2" />
+                    </div>
+
+                    <div class="form-group">
+                    <label>Roles</label>
+                                                    
+                    <select class="form-control role" id="role" name="role" required="" aria-required="true">
+                    <option selected="true" disabled="">Choose Roles</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                    <option value="printer">Printer</option>
+    
+                    </select>                                  
+
+                     </div>
+
+                    <div class="form-group">
+                        <label>Position</label>
+                        <input type="text" class="form-control" name="position">
+                    </div>
+
+
+        
+                    
+                    <div class="form-group" style="margin-bottom: 70px;">
+                        <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Update</button>
+                    </div>
+
+                </form>
+
+
+                {{-- </form> --}}
+
+                {{-- end here  --}}
             </div>
+        </div>
+    </div>
 
-            @if ($action == "createUser")
-            <div class="form-group col-span-6 sm:col-span-5">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <small>Minimal 8 karakter</small>
-                <x-jet-input id="password" type="password" class="mt-1 block w-full form-control shadow-none" wire:model.defer="user.password" />
-                <x-jet-input-error for="user.password" class="mt-2" />
-            </div>
 
-            <div class="form-group col-span-6 sm:col-span-5">
-                <x-jet-label for="password_confirmation" value="{{ __('Konfirmasi Password') }}" />
-                <small>Minimal 8 karakter</small>
-                <x-jet-input id="password_confirmation" type="password" class="mt-1 block w-full form-control shadow-none" wire:model.defer="user.password_confirmation" />
-                <x-jet-input-error for="user.password_confirmation" class="mt-2" />
-            </div>
-            @endif
-        </x-slot>
 
-        <x-slot name="actions">
-            <x-jet-action-message class="mr-3" on="saved">
-                {{ __($button['submit_response']) }}
-            </x-jet-action-message>
 
-            <x-jet-button>
-                {{ __($button['submit_text']) }}
-            </x-jet-button>
-        </x-slot>
-    </x-jet-form-section>
+{{-- </div> --}}
 
-    <x-notify-message on="saved" type="success" :message="__($button['submit_response_notyf'])" />
-</div>
