@@ -27,15 +27,17 @@ class PostController extends Controller
         ]);
 
         // retrieve post trix message data 
-        $post_data = TrixRichText::orderBy('id', 'desc')
-                                    ->join('posts', 'posts.id', '=', 'trix_rich_texts.model_id')
-                                    ->where('posts.ticket_id', $ticket_id)
-                                    ->select('posts.poster_name', 'posts.role' , 'trix_rich_texts.*')
-                                    ->get();
+        // $post_data = TrixRichText::orderBy('id', 'desc')
+        //                             ->join('posts', 'posts.id', '=', 'trix_rich_texts.model_id')
+        //                             ->where('posts.ticket_id', $ticket_id)
+        //                             ->select('posts.poster_name', 'posts.role' , 'trix_rich_texts.*')
+        //                             ->get();
 
         // retrieve ticket collection data 
-        $ticket_collection = Ticket::where('ticket_id', $ticket_id)->first();
+        // $ticket_collection = Ticket::where('ticket_id', $ticket_id)->first();
 
-        return view('components.job_tracker_main', compact('post_data', 'ticket_collection', 'ticket_id'));
+        // return view('components.job_tracker_main', compact('post_data', 'ticket_collection', 'ticket_id'));
+
+        return redirect()->route('ticket', $ticket_id);
     }
 }

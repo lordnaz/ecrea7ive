@@ -12,41 +12,53 @@
     <div>
         {{-- <livewire:create-manpower/> --}}
         {{-- <x-edit-manpower :data="$data"></x-edit-manpower> --}}
-        <x-job_tracker :messages="$post_data" :data="$ticket_collection" :ticket="$ticket_id"></x-job_tracker>
+        <x-job_tracker :messages="$post_data" :data="$ticket_collection" :ticket="$ticket_id" :printers="$printers"></x-job_tracker>
     </div>
 </x-app-layout>
 
 <script>
     $(document).ready(function() {
 
-        var toolbarOptions = [
-            // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-            [{ 'header': [1, 2, false] }],
-            [{ 'font': [] }],
-            ['bold', 'italic', 'underline'],        // toggled buttons
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            // ['blockquote'],
-            // ['image', 'code-block']
-            ['image'],
-            // [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-            // [{ 'direction': 'rtl' }],                         // text direction
+        // var toolbarOptions = [
+        //     // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        //     [{ 'header': [1, 2, false] }],
+        //     [{ 'font': [] }],
+        //     ['bold', 'italic', 'underline'],        // toggled buttons
+        //     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        //     // ['blockquote'],
+        //     // ['image', 'code-block']
+        //     ['image'],
+        //     // [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+        //     [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+        //     // [{ 'direction': 'rtl' }],                         // text direction
 
-            // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        //     // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
 
-            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+        //     [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
             
-            // [{ 'align': [] }],
+        //     // [{ 'align': [] }],
 
-            // ['clean']                                         // remove formatting button
-        ];
+        //     // ['clean']                                         // remove formatting button
+        // ];
         
-        var quill = new Quill('#editor', {
-            modules: {
-                toolbar: toolbarOptions
-            },
-            placeholder: 'What are you thinking...',
-            theme: 'snow'
+        // var quill = new Quill('#editor', {
+        //     modules: {
+        //         toolbar: toolbarOptions
+        //     },
+        //     placeholder: 'What are you thinking...',
+        //     theme: 'snow'
+        // });
+
+
+        $('#panel_printer').hide();
+
+        $('#printerSwitch').change(function() {
+        // this will contain a reference to the checkbox   
+            if (this.checked) {
+                $('#panel_printer').show(500);
+            } else {
+                $('#panel_printer').hide(500);
+            }
         });
 
     });

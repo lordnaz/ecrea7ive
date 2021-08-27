@@ -14,5 +14,7 @@ class TrixRichText extends Model
      *
      * @var string
      */
-    protected $table = 'trix_rich_texts';
+    // protected $table = 'trix_rich_texts';
+
+    protected $fillable = ['field', 'model_type', 'model_id', 'content'];
 }

@@ -19,6 +19,6 @@ class Ticket extends Model
     protected $fillable = ['ticket_id', 'job_name', 'job_status', 'job_type', 
                             'references', 'description', 'delivery_type', 'dateline', 
                             'pic_name', 'pic_email', 'pic_contact_no', 'pic_office_no',
-                            'pic_address', 'pic_postcode', 'created_by'];
+                            'pic_address', 'pic_postcode', 'printer', 'active', 'created_by'];
 
 }

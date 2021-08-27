@@ -39,5 +39,16 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     Route::view('/user/edit/{userId}', "pages.user.user-edit")->name('user.edit');
 
     Route::post('/post_message', [ PostController::class, "post_message" ])->name('post_message');
+
+    // job status 
+    Route::get('/acknowledged/{ticket_id}', [ JobController::class, "acknowledged" ])->name('acknowledged');
+    Route::get('/prepared/{ticket_id}', [ JobController::class, "prepared" ])->name('prepared');
+    Route::get('/approved/{ticket_id}', [ JobController::class, "approved" ])->name('approved');
+    Route::get('/received/{ticket_id}', [ JobController::class, "received" ])->name('received');
+    Route::get('/closed/{ticket_id}', [ JobController::class, "closed" ])->name('closed');
+
+    // assign printer 
+    Route::post('/assign_printer/{ticket_id}', [ JobController::class, "assign_printer" ])->name('assign_printer');
+    
     
 });

@@ -17,12 +17,12 @@ class TaskController extends Controller
         // retrieve ticket collection data 
 
         $roles = auth()->user()->role;
-        $created_by = auth()->user()->id;
+        $uuid = auth()->user()->id;
         
         if($roles == "user"){
-            $collection = Ticket::orderBy('id', 'desc')->where('created_by', $created_by)->get();
+            $collection = Ticket::orderBy('id', 'desc')->where('created_by', $uuid)->get();
         }else if($roles == "printer"){
-            $collection = Ticket::orderBy('id', 'desc')->get();
+            $collection = Ticket::orderBy('id', 'desc')->where('printer', $uuid)->get();
         }else{
             $collection = Ticket::orderBy('id', 'desc')->get();
         }

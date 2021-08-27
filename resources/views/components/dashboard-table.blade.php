@@ -38,16 +38,18 @@
             <table class="table table-md table-hover table-borderless" id="table-1">
                 <thead>
                     <tr class="text-center">
-                    <th class="text-center">
-                        #
-                    </th>
-                    <th>Date Created</th>
-                    <th>Ticket ID</th>
-                    <th>PIC Name</th>
-                    <th>PIC Contact</th>
-                    <th>Dateline</th>
-                    <th>Progress Status</th>
-                    <th>Action</th>
+                        <th class="text-center">
+                            #
+                        </th>
+                        {{-- <th>Date Created</th> --}}
+                        <th>Ticket ID</th>
+                        <th>Job Name</th>
+                        <th>Owner</th>
+                        <th>Contact</th>
+                        <th>Dateline</th>
+                        <th>Active</th>
+                        <th>Progress Status</th>
+                        <th>Details</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,11 +59,14 @@
                             <td>
                                 {{ $index }}
                             </td>
-                            <td>
+                            {{-- <td>
                                 {{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y g:i:s a')}}
-                            </td>
+                            </td> --}}
                             <td>
                                 {{ $item->ticket_id }}
+                            </td>
+                            <td>
+                                {{ $item->job_name }}
                             </td>
                             <td>
                                 {{ $item->pic_name }}
@@ -73,46 +78,72 @@
                                 {{ \Carbon\Carbon::parse($item->dateline)->format('d/m/Y')}}
                             </td>
                             <td>
+                                @if ($item->active == 1)
+                                    <span class="badge badge-pill badge-success">Active</span>
+                                @else 
+                                    <span class="badge badge-pill badge-danger">Inactive</span>
+                                @endif
+                                
+                            </td>
+                            <td>
                                 @if ($item->ticket_status == "ACKNOWLEDGE")
                                     {{ $item->ticket_status }}
-                                    <div class="progress mb-3" style="height: 5px;">
-                                        <div class="progress-bar bg-warning" role="progressbar" data-width="40%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                                    <div class="progress mb-3" style="height: 10px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" data-width="30%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                            <small>30%</small> 
+                                        </div>
+                                    </div>
+                                
+                                @elseif($item->ticket_status == "REVIEW")
+                                    {{ $item->ticket_status }}
+                                    <div class="progress mb-3" style="height: 10px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" data-width="45%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                            <small>45%</small> 
+                                        </div>
                                     </div>
 
                                 @elseif($item->ticket_status == "APPROVED")
                                     {{ $item->ticket_status }}
-                                    <div class="progress mb-3" style="height: 5px;">
-                                        <div class="progress-bar bg-warning" role="progressbar" data-width="60%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                                    <div class="progress mb-3" style="height: 10px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" data-width="60%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                            <small>60%</small> 
+                                        </div>
                                     </div>
 
                                 @elseif($item->ticket_status == "RECEIVED")
                                     {{ $item->ticket_status }}
-                                    <div class="progress mb-3" style="height: 5px;">
-                                        <div class="progress-bar bg-success" role="progressbar" data-width="80%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                                    <div class="progress mb-3" style="height: 10px;">
+                                        <div class="progress-bar bg-success" role="progressbar" data-width="95%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                            <small>95%</small> 
+                                        </div>
                                     </div>
 
-                                @elseif($item->ticket_status == "FINISHED")
+                                @elseif($item->ticket_status == "CLOSED")
                                     {{ $item->ticket_status }}
-                                    <div class="progress mb-3" style="height: 5px;">
-                                        <div class="progress-bar bg-success" role="progressbar" data-width="100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                                    <div class="progress mb-3" style="height: 10px;">
+                                        <div class="progress-bar bg-success" role="progressbar" data-width="100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                            <small>100%</small> 
+                                        </div>
                                     </div>
 
                                 @elseif($item->ticket_status == "CANCELLED")
                                     {{ $item->ticket_status }}
-                                    <div class="progress mb-3" style="height: 5px;">
+                                    <div class="progress mb-3" style="height: 10px;">
                                         <div class="progress-bar bg-danger" role="progressbar" data-width="100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                     </div>
 
                                 @else
                                     {{ $item->ticket_status }}
-                                    <div class="progress mb-3" style="height: 5px;">
-                                        <div class="progress-bar bg-info" role="progressbar" data-width="20%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                                    <div class="progress mb-3" style="height: 10px;">
+                                        <div class="progress-bar bg-info" role="progressbar" data-width="20%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                            <small>20%</small> 
+                                        </div>
                                     </div>
                                 @endif
                                 
                             </td>
                             <td>
-                                <a href="{{route('ticket', $item->ticket_id)}}" target="_blank" class="btn btn-dark">
+                                <a href="{{route('ticket', $item->ticket_id)}}" class="btn btn-dark">
                                     <i class="far fa-check-circle"></i>
                                     Open Ticket
                                 </a>
