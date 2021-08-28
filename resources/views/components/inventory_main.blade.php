@@ -10,13 +10,18 @@
     </x-slot>
 
     <div>
-        {{-- load component  --}}
-        <x-inventory></x-inventory>
+        <x-inventory :stocks="$stocklist"></x-inventory>
     </div>
+    
 
     <div>
+        <x-inventory_update :stocks="$stocklist"></x-inventory_update>
+    </div>
+    
+
+    {{-- <div>
             <livewire:table.main name="inventory" :model="$inventory" />
-        </div>
+        </div> --}}
 </x-app-layout>
 
 
@@ -27,6 +32,8 @@
             locale: {format: 'DD-MM-YYYY'},
             singleDatePicker: true,
         });
+
+        // $("p").css("background-color", "#f9f9f9");
 
     });
     

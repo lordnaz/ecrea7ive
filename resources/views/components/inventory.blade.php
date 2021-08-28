@@ -8,81 +8,50 @@ $role = auth()->user()->role;
 @endphp
 
 
-{{-- <div class="row"> --}}
-    <div class="card col-lg-8 col-md-8">
-        <div class="card-header">
-            <h4 class="section-title">New Stock Purchase</h4>
-            <div class="card-header-action">
-                <a data-collapse="#mycard-collapse2" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
-            </div>
-        </div>
-        <div class="collapse show" id="mycard-collapse2" style="">
-            <div class="card-body">
 
-                @if (session('status'))
-                    <div class="alert alert-success alert-dismissible show fade">
-                        <div class="alert-body">
-                            <button class="close" data-dismiss="alert">
-                                <span>×</span>
-                            </button>
-                            {{ session('status') }}
+<div class="card col-lg-12 col-md-12">
+    <div class="card-header">
+        <h4 class="section-title">Stock Details</h4>
+        <div class="card-header-action">
+            <a data-collapse="#mycard-collapse2" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
+        </div>
+    </div>
+    <div class="collapse show" id="mycard-collapse2" style="">
+        <div class="card-body">
+
+            <div class="row">
+                @foreach ($stocks as $stock)
+
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1 border border-primary">
+                        <div class="card-icon bg-primary">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4 class="text-dark">
+                                    {{$stock->item}}
+                                    @if ($stock->sub_item)
+                                        <small class="text-muted">- {{$stock->sub_item}}</small>
+                                    @endif
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                {{$stock->quantity}}
+                                <div class="text-small text-muted">{{$stock->updated_by_name}} <div class="bullet"></div>{{ \Carbon\Carbon::parse($stock->updated_at)->diffForHumans()}}</div>
+                            </div>
                         </div>
                     </div>
-                @endif
-
-                {{-- start here --}}
-                <form action="/inventory" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
-                
-                    {{@csrf_field()}}
-
-                    <div class="alert alert-light">
-                        Insert new stock purchase information below.
-                    </div>
-
-                    <br>
-                    @if ($role =="superadmin")
-                    <div class="form-group">
-                        <label>Item Name</label>
-                        <input type="text" class="form-control" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label>Quantity</label>
-                        <input type="text" class="form-control" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label>Price (RM)</label>
-                        <input type="text" class="form-control" name="email">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea id="description" name="description" rows="3" class="form-control"></textarea>
-                    </div>
-                   
-                    @endif
-            
-
-
-        
+                </div>
                     
-                    <div class="form-group" style="margin-bottom: 70px;">
-                        <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Update</button>
-                    </div>
-
-                </form>
-
-
-                {{-- </form> --}}
-
-                {{-- end here  --}}
+                @endforeach
             </div>
         </div>
     </div>
+</div>
 
 
 
-
-{{-- </div> --}}
 
 
 

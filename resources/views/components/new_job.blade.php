@@ -64,8 +64,17 @@ $details = Auth::user()->usersdetail;
                             <option value="Rubber Stamp">Rubber Stamp</option>
                             <option value="T-shirt">T-shirt</option>
                             <option value="Door Signage">Door Signage</option>
+                            <option value="Others">Others</option>
                         </select>
                     </div>
+
+                    <div id="others_panel">  
+                        <div class="form-group">
+                            <label>Others (Please specify)</label>
+                            <input type="text" class="form-control" name="others" id="others">
+                        </div>
+                    </div>
+                    
 
                     <div class="form-group">
                         <div class="control-label">Job Status</div>

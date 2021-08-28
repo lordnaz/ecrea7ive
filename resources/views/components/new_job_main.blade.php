@@ -24,6 +24,25 @@
             singleDatePicker: true,
         });
 
+        $('#others_panel').hide();
+        $("#others").prop('required',false);
+
+        $('#job_name').on('change', function() {
+            // alert( this.value );
+
+            if(this.value == "Others"){
+                $('#others_panel').show(500);
+                $("#others").prop('required',true);
+            }else{
+                $('#others_panel').hide(500);
+                $("#others").prop('required',false);
+            }
+        });
+
+        // $("#job_name").change(function(){
+        //     alert("The text has been changed.");
+        // });
+
     });
     
 </script>

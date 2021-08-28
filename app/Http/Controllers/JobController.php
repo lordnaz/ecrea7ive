@@ -47,15 +47,20 @@ class JobController extends Controller
             if($req->job_status == 'on'){
                 $urgent = 'Urgent';
             }
+
+            $namejob = $req->job_name;
+
+            if($req->job_name == "Others"){
+                $namejob = $req->others;
+            }
             
             // creating ticket 
             $ticket = Ticket::create([
                 'ticket_id' => $ticket_id,
                 'ticket_status' => 'CREATED',
-                'job_name' => $req->job_name,
+                'job_name' => $namejob,
                 'job_status' => $urgent,
                 'job_type' => $req->job_type,
-                'job_name' => $req->job_name,
                 'references' => $req->references,
                 'description' => $req->description,
                 'delivery_type' => $req->delivery_type,
