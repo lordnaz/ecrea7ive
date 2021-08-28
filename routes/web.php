@@ -58,6 +58,10 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     Route::get('/help_center', [ HelpCenterController::class, "index" ])->name('help_center');
 
     Route::get('/inventory', [ InventoryController::class, "index" ])->name('inventory');
+    Route::get('/add_inventory', [ InventoryController::class, "add_stock" ])->name('add_inventory');
+    
+    //only use to initiate/add base item
+    Route::get('/init_inventory', [ InventoryController::class, "init_state" ])->name('init_inventory');
 
     Route::get('/job_history_main', [ JobHistoryController::class, "index" ])->name('job_history_main');
     
