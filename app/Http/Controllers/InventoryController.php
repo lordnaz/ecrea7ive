@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Stocklist;
+use App\Models\StockList as Stocklist;
 use App\Models\StockUpdateTrail;
 
 use Increment;
