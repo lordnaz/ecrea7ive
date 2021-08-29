@@ -50,7 +50,7 @@ class RequestMeetingController extends Controller
             'description' => $req->description,
             'department' => $req->department,
             'startdate' => $req->datetimes,
-            'status'=>$status,
+            'job_status'=>$status,
             'startdate'=> $start_date,
             'enddate'=>$end_date,
             'updated_at' => $currentdt,

@@ -40,7 +40,7 @@
                   
                     <div class="form-group">
                         <label>Requester</label>
-                        <input type="text" class="form-control" name="fullname" value="{{ $leavesDetails->name}}" required>
+                        <input type="text" class="form-control" name="fullname" value="{{ $leavesDetails->name}}" readonly required>
                     </div>
 
 

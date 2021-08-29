@@ -140,13 +140,13 @@ $name = auth()->user()->name;
                                     <b>{{ $listMeeting->enddate }}</b>
                                     </td>
                                     <td>
-                                    @if($listMeeting->status == "PENDING")
+                                    @if($listMeeting->job_status == "PENDING")
                                    
                                     <span class="badge badge-pill badge-warning">Pending</span>
-                                    @elseif($listMeeting->status == "APPROVED")
+                                    @elseif($listMeeting->job_status == "APPROVED")
                                  
                                     <span class="badge badge-pill badge-success">Approved</span>
-                                     @elseif($listMeeting->status == "REJECTED")
+                                     @elseif($listMeeting->job_status == "REJECTED")
                                      <span class="badge badge-pill badge-danger">Rejected</span>
                                     @endif
 

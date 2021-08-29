@@ -8,7 +8,7 @@ $user = auth()->user();
 #echo request();
 @endphp
 @include('flash-message')   
-@if ($role =="superadmin" || $role ==  "admin") 
+@if ($role ==  "admin") 
 <div class="card">
     <div class="row">
  
@@ -53,7 +53,7 @@ $user = auth()->user();
                   
                     <div class="form-group">
                         <label>Requester</label>
-                        <input type="text" class="form-control" name="fullname" value="{{$user->name ?? ''}}" required>
+                        <input type="text" class="form-control" name="fullname" value="{{$user->name ?? ''}}" readonly required>
                     </div>
 
 
@@ -166,7 +166,7 @@ $user = auth()->user();
 </div>
 </div>
     @endif   
-    @if ($role =="user" || $role ==  "printer") 
+    @if ($role != "admin") 
    
     <div class="row">
 

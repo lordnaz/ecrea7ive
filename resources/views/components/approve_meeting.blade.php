@@ -62,17 +62,17 @@
                                     <b>{{ $pendingMeeting->enddate }}</b>
                                     </td>
                                     <td>
-                                    @if($pendingMeeting->status == "PENDING")
+                                    @if($pendingMeeting->job_status == "PENDING")
 
                             
                                    
                                 <a role="button" href="{{route('appMeeting', $pendingMeeting->id)}}" class="btn btn-icon btn-success"><i class="fa fa-16px fa-check"></i></a>
                                 <a role="button" href="{{route('rejMeeting', $pendingMeeting->id)}}" class="btn btn-icon btn-danger"><i class="fa fa-16px fa-times"></i></a>
                                
-                                    @elseif($pendingMeeting->status == "APPROVED")
+                                    @elseif($pendingMeeting->job_status == "APPROVED")
                                  
                                     <span class="badge badge-pill badge-success">Approved</span>
-                                     @elseif($pendingMeeting->status == "REJECTED")
+                                     @elseif($pendingMeeting->job_status == "REJECTED")
                                      <span class="badge badge-pill badge-danger">Rejected</span>
                                     @endif
 

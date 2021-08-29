@@ -35,24 +35,24 @@
         
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="text" class="form-control" name="email" required>
                     </div>
 
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" name="name" required>
                     </div>
 
                     <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" id="password" name="password" wire:model.defer="state.password" autocomplete="new-password">
+                    <input type="password" class="form-control" id="password" name="password" wire:model.defer="state.password" autocomplete="new-password" required>
                     <input-error for="password" class="mt-2" />
                     </div>
 
                     <div class="form-group">
                     <label>Roles</label>
                                                     
-                    <select class="form-control role" id="role" name="role" required="" aria-required="true">
+                    <select class="form-control role" id="role" name="role" required="" aria-required="true" required>
                     <option selected="true" disabled="">Choose Roles</option>
                     <option value="admin">Admin</option>
                     <option value="user">User</option>

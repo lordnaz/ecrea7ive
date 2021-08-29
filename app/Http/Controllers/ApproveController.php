@@ -34,7 +34,7 @@ class ApproveController extends Controller
         // update job status
         PendingMeeting::where('id', $id)
                 ->update([
-                    'status' => "APPROVED", 
+                    'job_status' => "APPROVED", 
                     'approved_by'=>$uname,
                     'updated_at' => $currentdt
                 ]);
@@ -53,7 +53,7 @@ class ApproveController extends Controller
         // update job status
         PendingMeeting::where('id', $id)
                 ->update([
-                    'status' => "REJECTED", 
+                    'job_status' => "REJECTED", 
                     'approved_by'=>$uname,
                     'updated_at' => $currentdt
                 ]);

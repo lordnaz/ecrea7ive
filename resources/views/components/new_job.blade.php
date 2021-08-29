@@ -15,7 +15,7 @@ $details = Auth::user()->usersdetail;
 <br>
 
 {{-- <div class="row"> --}}
-    <form action="/update_profile" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
+    <form action="/request_job" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
     <div class="card col-lg-8 col-md-8">
         <div class="card-header">
             <h4 class="section-title">Job Details</h4>

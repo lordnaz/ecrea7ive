@@ -22,7 +22,7 @@ class PendingMeeting extends Model
         'approved_by',
         'department',
         'description',
-        'status',
+        'job_status',
         'startdate',
         'enddate',
         

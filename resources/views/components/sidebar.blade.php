@@ -60,9 +60,9 @@ $user = auth()->user();
                 <a class="nav-link" href="{{ route('approve_meeting') }}"><i class="fas fa-clipboard"></i><span>Approve Meeting</span></a>
             </li>
 
-            <li class="{{ Request::routeIs('register_leaves') ? 'active' : '' }}">
+            {{-- <li class="{{ Request::routeIs('register_leaves') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('register_leaves') }}"><i class="fas fa-hiking"></i><span>Register Leaves</span></a>
-            </li>
+            </li> --}}
 
             <li class="{{ Request::routeIs('user.new') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.new') }}"><i class="fas fa-user-plus"></i><span>Create User</span></a>
@@ -71,13 +71,19 @@ $user = auth()->user();
 
             @endif
 
+            @if ($role =="admin")
+                <li class="{{ Request::routeIs('register_leaves') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('register_leaves') }}"><i class="fas fa-hiking"></i><span>Register Leaves</span></a>
+                </li>
+            @endif
+
             @if ($role =="user")
 
             <li class="{{ Request::routeIs('request_meeting') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('request_meeting') }}"><i class="fas fa-tasks"></i><span>Request Meeting</span></a>
             </li>
             @endif
-            @if ($role =="user"||$role =="printer")
+            @if ($role !="admin")
             <li class="{{ Request::routeIs('register_leaves') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('register_leaves') }}"><i class="fas fa-hiking"></i><span>Leaves</span></a>
             </li>

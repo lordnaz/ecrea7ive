@@ -18,7 +18,7 @@ class RegisterLeavesController extends Controller
 
         // print $user_id;
         
-        if($user_id == $user_id &&($role =='admin'||$role =='superadmin')){
+        if($user_id == $user_id &&($role =='admin')){
             $leavesApplication = LeaveApplication::orderBy('user_id', 'desc')->where('user_id', $user_id)->get();
         }else{
             $leavesApplication = LeaveApplication::orderBy('user_id', 'desc')->get();
