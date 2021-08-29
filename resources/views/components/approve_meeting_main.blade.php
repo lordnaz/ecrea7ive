@@ -11,14 +11,10 @@
 
 
 
-
+    <x-approve_meeting :pendingMeetings="$pendingMeeting"></x-approve_meeting>
+  
     
         
-        <div>
-            <livewire:table.main name="pendingMeeting" :model="$pendingMeeting" />
-        </div>
-        
-   
 </x-app-layout>
 
 
@@ -30,6 +26,12 @@
             singleDatePicker: true,
         });
 
+    });
+
+    $("#table-5").dataTable({
+        "columnDefs": [
+            { "sortable": false, "targets": [0,2,3] }
+        ]
     });
     
 </script>

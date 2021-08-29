@@ -70,14 +70,19 @@ $user = auth()->user();
 
 
             @endif
+
             @if ($role =="user")
 
             <li class="{{ Request::routeIs('request_meeting') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('request_meeting') }}"><i class="fas fa-tasks"></i><span>Request Meeting</span></a>
             </li>
-
-            
             @endif
+            @if ($role =="user"||$role =="printer")
+            <li class="{{ Request::routeIs('register_leaves') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('register_leaves') }}"><i class="fas fa-hiking"></i><span>Leaves</span></a>
+            </li>
+            @endif
+    
 
             <li class="{{ Request::routeIs('help_center') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('help_center') }}"><i class="fas fa-question-circle"></i><span>Help Center</span></a>

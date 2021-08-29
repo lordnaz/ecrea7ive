@@ -1,5 +1,5 @@
 
-
+@include('flash-message')   
 {{-- <div class="row"> --}}
     <div class="card col-lg-8 col-md-8">
         <div class="card-header">
@@ -45,7 +45,7 @@
 
                     <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" id="password" name="password" wire:model.defer="state.password" autocomplete="password">
+                    <input type="password" class="form-control" id="password" name="password" wire:model.defer="state.password" autocomplete="new-password">
                     <input-error for="password" class="mt-2" />
                     </div>
 
@@ -71,7 +71,7 @@
         
                     
                     <div class="form-group" style="margin-bottom: 70px;">
-                        <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Update</button>
+                        <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Submit</button>
                     </div>
 
                 </form>

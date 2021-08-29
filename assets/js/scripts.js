@@ -28,6 +28,7 @@ if(window.Dropzone) {
 $('[data-confirm]').each(function() {
   var me = $(this),
       me_data = me.data('confirm');
+      
 
   me_data = me_data.split("|");
   me.fireModal({
@@ -613,4 +614,5 @@ $(function() {
       }
     });
   }
+  
 });

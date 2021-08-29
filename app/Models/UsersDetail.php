@@ -15,6 +15,16 @@ class UsersDetail extends Model
      * @var string
      */
     protected $table = 'users_details';
+    protected $fillable = [
+        'user_id',
+        'company_name',
+        'branch',
+        'department',
+        'hod',
+        'address',
+        'postcode',
+        'contact_no',
+    ];
 
     /**
      * Get the user that owns the phone.

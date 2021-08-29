@@ -4,10 +4,10 @@
 <div class="card-body">
                     <div id="accordion">
                       <div class="accordion">
-                        <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-1">
+                        <div class="accordion-header collapsed" role="button" data-toggle="collapse" data-target="#panel-body-1">
                           <h4>1.Can i register as a new user in the system?</h4>
                         </div>
-                        <div class="accordion-body collapse" id="panel-body-1" data-parent="#accordion" style="display: block;">
+                        <div class="accordion-body collapse" id="panel-body-1" data-parent="#accordion" style="">
                           <p class="mb-0">Unfortunately, our system only allows one user for each department.</p>
                         </div>
                       </div>
@@ -67,6 +67,20 @@
                       </div>
                     </div>
                   </div>
+<br>
+<div class="card-header">
+            <h4 class="section-title">User Manual</h4>
+        </div>
+        
+<div class="form-group">
+                
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp; <a href="{{route('downloadFile')}}" class="btn btn-outline-success btn-lg btn-icon icon-left">
+                   &nbsp; <i class="fas fa-external-link-alt"></i> &nbsp;Download Manual</a>
+            </div>
+
+
 
 </div>
+
 </div>

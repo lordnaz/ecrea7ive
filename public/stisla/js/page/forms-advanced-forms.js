@@ -75,3 +75,11 @@ $(".colorpickerinput").colorpicker({
   component: '.input-group-append',
 });
 $(".inputtags").tagsinput('items');
+$('.daterange-time').daterangepicker({
+  timePicker: true,
+  startDate: moment().startOf('hour'),
+  endDate: moment().startOf('hour').add(32, 'hour'),
+  locale: {
+    format: 'M-DD-YY hh:mm A'
+  }
+});

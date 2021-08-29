@@ -9,6 +9,7 @@ use App\Http\Controllers\HelpCenterController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\JobHistoryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RequestMeetingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,8 +41,13 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     Route::get('/ticket/{ticket_id}', [JobController::class, 'ticket'])->name('ticket');
 
     Route::get('/profile', [ UserController::class, "profile" ])->name('profile');
+    Route::get('/profile_edit/{id}', [ UserController::class, "profile_edit" ])->name('profile_edit');
+    Route::post('/updateProfile', [ UserController::class, "updateProfile" ])->name('updateProfile');
 
     Route::get('/user', [ UserController::class, "index_view" ])->name('user');
+    Route::get('/user_new', [ UserController::class, "index_view_new" ])->name('user_new');
+
+
     Route::view('/user/new', "pages.user.user-new")->name('user.new');
     Route::view('/user/edit/{userId}', "pages.user.user-edit")->name('user.edit');
     Route::post('/createUser', [ UserController::class, "createUser" ])->name('createUser');
@@ -49,15 +55,26 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
    
 
     Route::get('/approve_meeting', [ ApproveController::class, "index" ])->name('approve_meeting');
-    Route::get('/request_meeting', [ ApproveController::class, "index_request" ])->name('request_meeting');
-    
+    Route::get('/appMeeting/{id}', [ ApproveController::class, "appMeeting" ])->name('appMeeting');
+    Route::get('/rejMeeting/{id}', [ ApproveController::class, "rejMeeting" ])->name('rejMeeting');
+
+    Route::get('/request_meeting', [ RequestMeetingController::class, "index" ])->name('request_meeting');
+    Route::post('/requestMeeting', [ RequestMeetingController::class, "requestMeeting" ])->name('requestMeeting');
+   
+   
+   
     Route::get('/register_leaves', [ RegisterLeavesController::class, "index" ])->name('register_leaves');
-    Route::view('/leaves/edit_main/{userId}', "pages.leaves.leaves-edit_main")->name('leaves.edit');
-    Route::view('/leaves_edit/{userId}',[ RegisterLeavesController::class, "editLeaves"])->name('leaves_edit');
+    Route::get('/leaves_edit', [ RegisterLeavesController::class, "index_2" ])->name('leaves_edit');
+    Route::post('/requestleaves', [ RegisterLeavesController::class, "requestleaves" ])->name('requestleaves');
+    Route::get('/leaves_edit/{id}', [ RegisterLeavesController::class, "leaves_edit" ])->name('leaves_edit');
+    Route::post('/updateLeaves', [ RegisterLeavesController::class, "updateLeaves" ])->name('updateLeaves');
+    Route::get('/delete/{id}', [ RegisterLeavesController::class, "delete" ])->name('delete');
+
     
     
 
     Route::get('/help_center', [ HelpCenterController::class, "index" ])->name('help_center');
+    Route::get('/downloadFile', [ HelpCenterController::class, "downloadFile" ])->name('downloadFile');
 
     Route::get('/inventory', [ InventoryController::class, "index" ])->name('inventory');
     Route::post('/update_stock', [ InventoryController::class, "add_stock" ])->name('update_stock');

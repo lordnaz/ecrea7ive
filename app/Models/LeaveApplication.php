@@ -14,7 +14,16 @@ class LeaveApplication extends Model
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'leaves';
+
+     
+    protected $fillable = [
+        'name',
+        'user_id',
+        'startdate',
+        'enddate',
+        
+    ];
 
     public static function search($query)
     {
