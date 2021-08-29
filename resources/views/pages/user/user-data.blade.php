@@ -13,7 +13,4 @@
         <livewire:table.main name="user" :model="$user" />
     </div>
 
-    <div>
-        <livewire:table.main name="user" :model="$user" />
-    </div>
 </x-app-layout>

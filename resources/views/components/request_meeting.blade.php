@@ -1,7 +1,7 @@
 <!-- <h2 class="section-title">Register Leaves</h2> -->
 
 <br>
-<br>
+@include('flash-message')   
 @php
 $role = auth()->user()->role;
 $name = auth()->user()->name;
@@ -9,7 +9,15 @@ $name = auth()->user()->name;
 @endphp
 
 
-<div class="col-lg-5 col-md-12 col-12 col-sm-12">
+
+
+<div class="card">
+    <div class="row">
+
+
+
+
+    <div class="col-lg-5 col-md-12 col-12 col-sm-12">
               
 
 {{-- <div class="card col-lg-6 col-md-6"> --}}
@@ -34,7 +42,7 @@ $name = auth()->user()->name;
                 @endif
 
                 {{-- start here --}}
-                <form action="/request_meeting" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
+                <form action="/requestMeeting" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
                 
                     {{@csrf_field()}}
 
@@ -49,7 +57,7 @@ $name = auth()->user()->name;
 
                     <div class="form-group">
                         <label>Meeting Subject</label>
-                        <input type="text" class="form-control" name="subject ">
+                        <input type="text" class="form-control" name="meeting_subject">
                     </div>
 
                     <div class="form-group">
@@ -59,20 +67,20 @@ $name = auth()->user()->name;
                     
                     <div class="form-group">
                         <label>Department</label>
-                        <input type="text" class="form-control" name="department ">
+                        <input type="text" class="form-control" name="department">
                     </div>
                    
                    
             
                     <div class="form-group">
                         <label>Start Date and End Date</label>
-                        <input type="text" class="form-control daterange" name="datetime">
+                        <input type="text" class="form-control daterange-time" name="datetimes">
                     </div>
 
         
                     
                     <div class="form-group" style="margin-bottom: 70px;">
-                        <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Update</button>
+                        <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Submit</button>
                     </div>
 
                 </form>
@@ -85,14 +93,88 @@ $name = auth()->user()->name;
         </div>
     </div>
 
+    <div class="col-lg-7 col-md-12 col-12 col-sm-12">
+        <div class="card-header">
+            <h4 class="section-title">Meeting Request Status</h4>
+            <div class="card-header-action">
+                <a data-collapse="#mycard-collapse3" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
+            </div>
+        </div>
+        <div class="collapse show" id="mycard-collapse3" style="">
+            <div class="card-body">
 
+                <div class="table-responsive">
+                    <table class="table table-md table-hover table-borderless" id="table-4">
+                        <thead>
+                            <tr class="text-center">
+                               
+                    
+                                <th>Requester</th>
+                                <th>Department</th>
+                                <th>Description</th>
+                                <th>Date Time</th>
+                                <th>Status</th>
+                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @php $index = 1; @endphp
+                        @foreach ($listMeetings as $listMeeting)
+                                <tr class="text-center">
+                                    <td>
+                                    {{ $name }}
+                                    </td>
+                                    <td>
+                                    {{ $listMeeting->department }}
+                                    </td>
+                                    <td>
+                                    Meeting Subject :
+                                    <b>{{ $listMeeting->meeting_subject }}</b><br>
+                                    Description :
+                                    <b>{{ $listMeeting->description }}</b>
+                                    </td>
+                                    <td>
+                                    Start Date : 
+                                    <b>{{ $listMeeting->startdate }}</b><br>
+                                    End Date : 
+                                    <b>{{ $listMeeting->enddate }}</b>
+                                    </td>
+                                    <td>
+                                    @if($listMeeting->status == "PENDING")
+                                   
+                                    <span class="badge badge-pill badge-warning">Pending</span>
+                                    @elseif($listMeeting->status == "APPROVED")
+                                 
+                                    <span class="badge badge-pill badge-success">Approved</span>
+                                     @elseif($listMeeting->status == "REJECTED")
+                                     <span class="badge badge-pill badge-danger">Rejected</span>
+                                    @endif
+
+                                    
+
+                                  
+                                   
+                                
+                                    </td>
+                                </tr>
+                             
+                                @php $index++; @endphp
+                            @endforeach
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
  
            
 
 
 
-    
+</div>
+</div>
 
 
 {{-- </div> --}}

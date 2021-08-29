@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\User as User;
+use App\Models\UsersDetail as UsersDetail;
 
 
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +22,15 @@ class UserController extends Controller
     }
 
     public function profile (){
-        return view('components.profile_main');
+
+        return view('components.profile_main', [
+            'UsersDetail' => UsersDetail::class
+        ]);
+        
+    }
+
+    public function index_view_new (){
+        return view('components.user_new_main');
     }
 
     public function createUser(Request $req){
@@ -52,6 +61,71 @@ class UserController extends Controller
             $createUser->save();
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('user.new')->with('success','Successfully created new user!');
     }
+
+    public function profile_edit($id){
+
+        
+        $uname = auth()->user()->name;
+        $currentdt = date('Y-m-d H:i:s');
+        
+        // $leavesDetail = LeaveApplication::where('id', $id)->first();
+
+        return view('components.profile_main');
+
+                // return redirect()->route('leaves_edit',$id);
+    }
+
+    public function updateProfile(Request $req){
+        $user_id = auth()->user()->id;
+        
+
+        $data = $req->input();
+
+     
+        $currentdt = date('d-m-Y H:i:s');
+
+
+       
+        $exists = UsersDetail::where('user_id', $user_id)->exists();
+        if(!$exists){
+            $currentdt = date('d-m-Y H:i:s');
+            
+            $leaves = UsersDetail::create([
+                'user_id' => $user_id,
+                'company_name' => $req->company_name,
+                'branch' => $req->branch,
+                'department' => $req->department,
+                'address' => $req->address,
+                'postcode' => $req->postcode,
+                'contact_no' => $req->mobile_no,
+                'created_at' => $currentdt,
+                'updated_at' => $currentdt,
+               
+                ]);
+
+            
+    }   
+    $update = UsersDetail::where('user_id', $user_id)
+    ->update([
+        'company_name' => $req->company_name,
+        'branch' => $req->branch,
+        'department' => $req->department,
+        'address' => $req->address,
+        'postcode' => $req->postcode,
+        'contact_no' => $req->mobile_no,
+        'updated_at' => $currentdt,
+   
+    ]);
+
+
+
+
+
+
+        return redirect()->route('profile')->with('success','Successfully updated information!');
+    }
+
+
 }

@@ -14,7 +14,19 @@ class PendingMeeting extends Model
      *
      * @var string
      */
-    protected $table = 'migrations';
+    protected $table = 'meetings';
+
+    protected $fillable = [
+        'user_id',
+        'meeting_subject',
+        'approved_by',
+        'department',
+        'description',
+        'status',
+        'startdate',
+        'enddate',
+        
+    ];
 
     public static function search($query)
     {

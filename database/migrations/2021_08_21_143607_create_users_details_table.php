@@ -16,13 +16,13 @@ class CreateUsersDetailsTable extends Migration
         Schema::create('users_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->index();
-            $table->string('company_name');
-            $table->string('branch');
-            $table->string('department');
-            $table->string('hod');
-            $table->string('address');
-            $table->string('postcode');
-            $table->string('contact_no');
+            $table->string('company_name')->nullable();
+            $table->string('branch')->nullable();
+            $table->string('department')->nullable();
+            $table->string('hod')->nullable();
+            $table->string('address')->nullable();
+            $table->string('postcode')->nullable();
+            $table->string('contact_no')->nullable();
             $table->timestamps();
         });
 

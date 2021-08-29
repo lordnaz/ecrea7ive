@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header_content">
-        <h1>{{ __('Meeting Request') }}</h1>
+        <h1>{{ __('Update Register Leaves') }}</h1>
 
         <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
@@ -8,13 +8,14 @@
         <div class="breadcrumb-item"><a href="#">New Job</a></div>
         </div>
     </x-slot>
+    
 
-        
-        {{-- load component  --}}
-       
-        <x-request_meeting :listMeetings="$listMeeting"></x-request_meeting>
-        
 
+    
+    
+    <x-leaves_edit :leavesDetails="$leavesDetail"></x-leaves_edit  >
+ 
+    
    
         
         
@@ -43,33 +44,24 @@
 
 
 
-
-
-<input type="text" name="datetimes" />
+<input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
 
 <script>
 
-$("#table-4").dataTable({
-        "columnDefs": [
-            { "sortable": false, "targets": [0,2,3] }
-        ]
-    });
-
-
-    $('.daterange-cus').daterangepicker({
+$('.daterange-cus').daterangepicker({
         locale: {format: 'YYYY-MM-DD'},
         drops: 'down',
         opens: 'right'
     });
 
-
-    $('.daterange-time').daterangepicker({
-  timePicker: true,
-  startDate: moment().startOf('hour'),
-  endDate: moment().startOf('hour').add(32, 'hour'),
-  locale: {
-    format: 'M-DD-YY hh:mm A'
-  }
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
 });
-
 </script>
+
+
+
