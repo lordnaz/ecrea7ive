@@ -9,13 +9,13 @@
         </div>
     </x-slot>
 
-    <div>
+    {{-- <div>
         <x-inventory :stocks="$stocklist"></x-inventory>
-    </div>
+    </div> --}}
     
 
     <div>
-        <x-inventory_update :stocks="$stocklist"></x-inventory_update>
+        <x-inventory_update :stocks="$stocklist" :transactions="$stock_trail"></x-inventory_update>
     </div>
     
 

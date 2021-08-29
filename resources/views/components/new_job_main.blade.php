@@ -19,10 +19,40 @@
 
 <script>
     $(document).ready(function () {
+
+        // alert(moment())
+
+        // today
+        var minDate = moment().add('days', 3)
+
         $('.datepicker').daterangepicker({
             locale: {format: 'YYYY-MM-DD'},
             singleDatePicker: true,
+            minDate:minDate
         });
+
+        $( "#job_status" ).on( "change", function() {
+            var urgent = $('#job_status:checked').val()
+
+            if(urgent == "on"){
+
+                $('.datepicker').daterangepicker({
+                    locale: {format: 'YYYY-MM-DD'},
+                    singleDatePicker: true,
+                    minDate:moment().add('days', 1),
+                    startDate:moment().add('days', 1)
+                });
+            }else{
+                $('.datepicker').daterangepicker({
+                    locale: {format: 'YYYY-MM-DD'},
+                    singleDatePicker: true,
+                    minDate:moment().add('days', 3),
+                    startDate:moment().add('days', 3)
+                });
+            }
+
+        });
+
 
         $('#others_panel').hide();
         $("#others").prop('required',false);

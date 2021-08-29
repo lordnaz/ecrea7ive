@@ -23,10 +23,18 @@ $role = auth()->user()->role;
                 @foreach ($stocks as $stock)
 
                 <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1 border border-primary">
-                        <div class="card-icon bg-primary">
-                            <i class="fas fa-cube"></i>
-                        </div>
+                    <div class="card card-statistic-1 border border-secondary">
+
+                        @if ($stock->quantity < 5)
+                            <div class="card-icon bg-danger">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                        @else
+                            <div class="card-icon bg-success">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                        @endif
+    
                         <div class="card-wrap">
                             <div class="card-header">
                                 <h4 class="text-dark">
@@ -37,7 +45,8 @@ $role = auth()->user()->role;
                                 </h4>
                             </div>
                             <div class="card-body">
-                                {{$stock->quantity}}
+                                <b class="text-dark">{{$stock->quantity}}</b>
+                                
                                 <div class="text-small text-muted">{{$stock->updated_by_name}} <div class="bullet"></div>{{ \Carbon\Carbon::parse($stock->updated_at)->diffForHumans()}}</div>
                             </div>
                         </div>

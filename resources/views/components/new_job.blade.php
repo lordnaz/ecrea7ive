@@ -84,6 +84,15 @@ $details = Auth::user()->usersdetail;
                             <span class="custom-switch-description">URGENT JOB ?</span>
                         </label>
                     </div>
+                    
+                    <div class="alert alert-light">
+                        Minimum dateline for <b>[Normal Job]</b> is 3 days from now on <br> Minimum dateline for <b>[Urgent Job]</b> is 1 days from now on.
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Dateline</label>
+                        <input type="text" name="dateline" class="form-control datepicker" required>
+                    </div>
 
                     <div class="form-group">
                         <label class="form-label">Job Type</label>
@@ -126,11 +135,6 @@ $details = Auth::user()->usersdetail;
                                 </label>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Dateline</label>
-                        <input type="text" name="dateline" class="form-control datepicker" required>
                     </div>
 
                     <x-jet-section-border />

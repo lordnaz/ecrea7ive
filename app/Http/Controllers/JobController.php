@@ -346,6 +346,74 @@ class JobController extends Controller
         return redirect()->route('ticket', $ticket_id);
 
     }
+
+    public function cancel_job($ticket_id){
+
+        $uuid = auth()->user()->id;
+        $uname = auth()->user()->name;
+        $urole = auth()->user()->role;
+        $currentdt = date('Y-m-d H:i:s');
+        
+        // update job status
+        Ticket::where('ticket_id', $ticket_id)
+                ->update([
+                    'ticket_status' => "CANCELLED", 
+                    'active' => false, 
+                    'updated_at' => $currentdt
+                ]);
+
+        $posts = Post::create([
+            'poster_name' => $uname,
+            'role' => $urole,
+            'ticket_id' => $ticket_id,
+            'created_by' => $uuid
+        ]);
+
+        $postsId = $posts->id;
+
+        TrixRichText::create([
+            'field' => 'system',
+            'model_type' => 'system',
+            'model_id' => $postsId,
+            'content' => '<div><i>[System Alert]&nbsp;</i>Job has been <span class="text-danger">Cancelled</span> by Client.</div>'
+        ]);
+
+        return redirect()->route('ticket', $ticket_id);
+
+    }
+
+    public function reactivate($ticket_id){
+        $uuid = auth()->user()->id;
+        $uname = auth()->user()->name;
+        $urole = auth()->user()->role;
+        $currentdt = date('Y-m-d H:i:s');
+        
+        // update job status
+        Ticket::where('ticket_id', $ticket_id)
+                ->update([
+                    'ticket_status' => "CREATED", 
+                    'active' => true, 
+                    'updated_at' => $currentdt
+                ]);
+
+        $posts = Post::create([
+            'poster_name' => $uname,
+            'role' => $urole,
+            'ticket_id' => $ticket_id,
+            'created_by' => $uuid
+        ]);
+
+        $postsId = $posts->id;
+
+        TrixRichText::create([
+            'field' => 'system',
+            'model_type' => 'system',
+            'model_id' => $postsId,
+            'content' => '<div><i>[System Alert]&nbsp;</i>Job has been <span class="text-success">Reactivated</span> by '.$uname.'.</div>'
+        ]);
+
+        return redirect()->route('ticket', $ticket_id);
+    }
     
 
 }

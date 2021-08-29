@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
 
-        <div class="form-group">
+        {{-- <div class="form-group">
 
             <div class="row">
                 <div class="col">
@@ -32,7 +32,7 @@
                 </div>
             </div>
             
-        </div>
+        </div> --}}
 
         <div class="table-responsive">
             <table class="table table-md table-hover table-borderless" id="table-1">

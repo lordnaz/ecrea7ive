@@ -8,34 +8,84 @@ $role = auth()->user()->role;
 @endphp
 
 
-
 <div class="card col-lg-12 col-md-12">
     <div class="card-header">
-        <h4 class="section-title">Purchasing Stock</h4>
+        <h4 class="section-title">Stock Monitor</h4>
         <div class="card-header-action">
             <a data-collapse="#mycard-collapse2" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
         </div>
     </div>
     <div class="collapse show" id="mycard-collapse2" style="">
         <div class="card-body">
+
+            <div class="row">
+                @foreach ($stocks as $stock)
+
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1 border border-secondary">
+
+                        @if ($stock->quantity < 5)
+                            <div class="card-icon bg-danger">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                        @else
+                            <div class="card-icon bg-success">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                        @endif
+    
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4 class="text-dark">
+                                    {{$stock->item}}
+                                    @if ($stock->sub_item)
+                                        <small class="text-muted">- {{$stock->sub_item}}</small>
+                                    @endif
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <b class="text-dark">{{$stock->quantity}}</b>
+                                
+                                <div class="text-small text-muted">{{$stock->updated_by_name}} <div class="bullet"></div>{{ \Carbon\Carbon::parse($stock->updated_at)->diffForHumans()}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card col-lg-12 col-md-12">
+    <div class="card-header">
+        <h4 class="section-title">Available Stock</h4>
+        <div class="card-header-action">
+            <a data-collapse="#mycard-collapse3" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
+        </div>
+    </div>
+    <div class="collapse show" id="mycard-collapse3" style="">
+        <div class="card-body">
             
 
             <div class="row">
                 <div class="col-5">
 
-                    <div class="alert alert-light">
-                        <b>Key-in properly!</b> submission of this form will affecting the inventory report as purchase record.
+                    <div class="alert alert-warning text-dark">
+                        <b>Key-in properly!</b> submission of this form will affecting the <b>Stock Monitor</b>.
                     </div>
 
-                    <form method="POST" action="{{ route('post_message') }}">
+                    <form method="POST" action="{{ route('update_stock') }}">
                         @csrf
     
                         <div class="form-group">
                             <label>Item</label>
-                            <select name="job_name" id="job_name" class="form-control selectric" required>
+                            <select name="stock_name" id="stock_name" class="form-control selectric" required>
                                 <option value="" selected="true" disabled="">Choose Item</option>
                                 @foreach ($stocks as $stock)
-                                    <option value="Advertisement">
+                                    <option value="{{$stock->item}}|{{$stock->sub_item}}">
                                         {{$stock->item}}
                                         @if ($stock->sub_item)
                                             - {{$stock->sub_item}}
@@ -47,12 +97,78 @@ $role = auth()->user()->role;
     
                         <div class="form-group">
                             <label>Quantity</label>
-                            <input type="text" class="form-control" name="quantity" id="quantity" required>
+                            <input type="number" class="form-control" name="quantity" id="quantity" required>
+                        </div>
+    
+                        <div class="form-group text-right" style="margin-top: 15px;">
+                            <button type="submit" class="btn btn-primary">
+                                Update Stock
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-1"></div>
+
+                <div class="col-5">
+
+                    
+
+                </div>
+
+                <div class="col-1"></div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card col-lg-12 col-md-12">
+    <div class="card-header">
+        <h4 class="section-title">Stock Purchase Transaction</h4>
+        <div class="card-header-action">
+            <a data-collapse="#mycard-collapse4" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
+        </div>
+    </div>
+    <div class="collapse show" id="mycard-collapse4" style="">
+        <div class="card-body">
+            
+
+            <div class="row">
+                <div class="col-5">
+
+                    <div class="alert alert-warning text-dark">
+                        <b>Key-in properly!</b> submission of this form will affecting the purchase transaction record.
+                    </div>
+
+                    <form method="POST" action="{{ route('add_transaction') }}">
+                        @csrf
+    
+                        <div class="form-group">
+                            <label>Item</label>
+                            <select name="stock_name" id="stock_name" class="form-control selectric" required>
+                                <option value="" selected="true" disabled="">Choose Item</option>
+                                @foreach ($stocks as $stock)
+                                    <option value="{{$stock->item}}|{{$stock->sub_item}}">
+                                        {{$stock->item}}
+                                        @if ($stock->sub_item)
+                                            - {{$stock->sub_item}}
+                                        @endif
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" class="form-control" name="quantity" id="quantity" required>
                         </div>
 
                         <div class="form-group">
-                            <label>Price</label>
-                            <input type="text" class="form-control" name="price" id="price" required>
+                            <label>Price (RM)</label>
+                            <input type="number" class="form-control" name="price" id="price" required>
                         </div>
 
                         <div class="form-group">
@@ -74,118 +190,76 @@ $role = auth()->user()->role;
 
                     <div class="card gradient-bottom shadow-none">
                         <div class="card-header">
-                          <h4>Last 5 Purchase Record</h4>
-                          {{-- <div class="card-header-action dropdown">
-                            <a href="#" data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Month</a>
-                            <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                              <li class="dropdown-title">Select Period</li>
-                              <li><a href="#" class="dropdown-item">Today</a></li>
-                              <li><a href="#" class="dropdown-item">Week</a></li>
-                              <li><a href="#" class="dropdown-item active">Month</a></li>
-                              <li><a href="#" class="dropdown-item">This Year</a></li>
-                            </ul>
-                          </div> --}}
+                            <h4>Last 5 Purchase Record</h4>
                         </div>
                         <div class="card-body" id="top-5-scroll">
-                          <ul class="list-unstyled list-unstyled-border">
-                            <li class="media">
-                              <img class="mr-3 rounded" width="55" src="../assets/img/products/product-3-50.png" alt="product">
-                              <div class="media-body">
-                                <div class="float-right"><div class="font-weight-600 text-muted text-small">Total: 86</div></div>
-                                <div class="media-title">oPhone S9 Limited</div>
-                                <div class="mt-1">
-                                  <div class="budget-price">
-                                    <div class="budget-price-square bg-warning" data-width="64%"><small class="text-muted">previous</small></div>
-                                    <div class="budget-price-label">RM68,714 (17)</div>
-                                  </div>
-                                  <div class="budget-price">
-                                    <div class="budget-price-square bg-success" data-width="43%"><small class="text-muted">new</small></div>
-                                    <div class="budget-price-label">RM38,700 (8)</div>
-                                  </div>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="media">
-                              <img class="mr-3 rounded" width="55" src="../assets/img/products/product-4-50.png" alt="product">
-                              <div class="media-body">
-                                <div class="float-right"><div class="font-weight-600 text-muted text-small">Total: 67</div></div>
-                                <div class="media-title">iBook Pro 2018</div>
-                                <div class="mt-1">
-                                  <div class="budget-price">
-                                    <div class="budget-price-square bg-primary" data-width="84%"></div>
-                                    <div class="budget-price-label">$107,133</div>
-                                  </div>
-                                  <div class="budget-price">
-                                    <div class="budget-price-square bg-danger" data-width="60%"></div>
-                                    <div class="budget-price-label">$91,455</div>
-                                  </div>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="media">
-                              <img class="mr-3 rounded" width="55" src="../assets/img/products/product-1-50.png" alt="product">
-                              <div class="media-body">
-                                <div class="float-right"><div class="font-weight-600 text-muted text-small">Total: 63</div></div>
-                                <div class="media-title">Headphone Blitz</div>
-                                <div class="mt-1">
-                                  <div class="budget-price">
-                                    <div class="budget-price-square bg-primary" data-width="34%"></div>
-                                    <div class="budget-price-label">$3,717</div>
-                                  </div>
-                                  <div class="budget-price">
-                                    <div class="budget-price-square bg-danger" data-width="28%"></div>
-                                    <div class="budget-price-label">$2,835</div>
-                                  </div>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="media">
-                              <img class="mr-3 rounded" width="55" src="../assets/img/products/product-3-50.png" alt="product">
-                              <div class="media-body">
-                                <div class="float-right"><div class="font-weight-600 text-muted text-small">Total: 28</div></div>
-                                <div class="media-title">oPhone X Lite</div>
-                                <div class="mt-1">
-                                  <div class="budget-price">
-                                    <div class="budget-price-square bg-primary" data-width="45%"></div>
-                                    <div class="budget-price-label">$13,972</div>
-                                  </div>
-                                  <div class="budget-price">
-                                    <div class="budget-price-square bg-danger" data-width="30%"></div>
-                                    <div class="budget-price-label">$9,660</div>
-                                  </div>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="media">
-                              <img class="mr-3 rounded" width="55" src="../assets/img/products/product-5-50.png" alt="product">
-                              <div class="media-body">
-                                <div class="float-right"><div class="font-weight-600 text-muted text-small">Total: 19</div></div>
-                                <div class="media-title">Old Camera</div>
-                                <div class="mt-1">
-                                  <div class="budget-price">
-                                    <div class="budget-price-square bg-primary" data-width="35%"></div>
-                                    <div class="budget-price-label">$7,391</div>
-                                  </div>
-                                  <div class="budget-price">
-                                    <div class="budget-price-square bg-danger" data-width="28%"></div>
-                                    <div class="budget-price-label">$5,472</div>
-                                  </div>
-                                </div>
-                              </div>
-                            </li>
-                          </ul>
+                            <ul class="list-unstyled list-unstyled-border">
+                                @php
+                                    $index = 0;
+                                @endphp
+                                @foreach ($transactions as $transaction)
+                                    @php
+                                        $last = 0;
+                                        $latest = 0;
+
+                                        $total = $transaction->prev_quantity + $transaction->now_quantity;
+
+                                        $last = ($transaction->prev_quantity/$total)*100;
+
+                                        $latest = ($transaction->now_quantity/$total)*100;
+                                    @endphp
+                                    <li class="media">
+                                        <img class="mr-3 rounded" width="55" src="../assets/img/products/product-2-50.png" alt="product">
+                                        <div class="media-body">
+                                            <div class="float-right"><div class="font-weight-600 text-muted text-small">{{$transaction->sub_item}}</div></div>
+                                            <div class="media-title">
+                                                {{$transaction->item}}
+                                            </div>
+                                            <div class="mt-1">
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-warning" data-width="{{$last}}%"></div>
+                                                    <div class="budget-price-label">RM{{$transaction->prev_price}} ({{$transaction->prev_quantity}})</div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-success" data-width="{{$latest}}%"></div>
+                                                    <div class="budget-price-label">RM{{$transaction->now_price}} ({{$transaction->now_quantity}})</div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left">
+                                                <div class="text-muted text-small">
+                                                    <small>{{ \Carbon\Carbon::parse($transaction->created_at)->diffForHumans()}}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    @if ($index++ == 4)
+                                        @break
+                                    @endif
+                                @endforeach
+                            </ul>
                         </div>
+                        <div class="card-footer pt-3 d-flex justify-content-center" style="margin-top: 10px;">
+                            <div class="budget-price justify-content-center">
+                                <div class="budget-price-square bg-warning" data-width="20"></div>
+                                <div class="budget-price-label">Previous</div>
+                            </div>
+                            <div class="budget-price justify-content-center">
+                                <div class="budget-price-square bg-success" data-width="20"></div>
+                                <div class="budget-price-label">New</div>
+                            </div>
+                        </div>
+                        <hr>
                         <div class="card-footer pt-3 d-flex justify-content-center">
-                          <div class="budget-price justify-content-center">
-                            <div class="budget-price-square bg-primary" data-width="20"></div>
-                            <div class="budget-price-label">Selling Price</div>
-                          </div>
-                          <div class="budget-price justify-content-center">
-                            <div class="budget-price-square bg-danger" data-width="20"></div>
-                            <div class="budget-price-label">Budget Price</div>
-                          </div>
+                            <div class="budget-price justify-content-center">
+                                <a href="{{ route('all_transaction') }}" class="ticket-item ticket-more">
+                                    View All <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </div>
+                            
                         </div>
-                      </div>
+                        
+                    </div>
 
                 </div>
 

@@ -35,7 +35,7 @@ $user = auth()->user();
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{ route('dashboard') }}">
-                <img class="d-inline-block" width="32px" height="30.61px" src="./img/serbaDK.png" alt="">
+                <img class="d-inline-block" width="32px" height="30.61px" src="{{asset('/img/serbaDK.png')}}" alt="">
             </a>
         </div>
         
@@ -45,7 +45,7 @@ $user = auth()->user();
             <li class="{{ Request::routeIs('dashboard') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('dashboard') }}"><i class="fab fa-stack-overflow"></i><span>Main Task</span></a>
             </li>
-            @if ($role != "printer")
+            @if ($role == "user")
             <li class="{{ Request::routeIs('new_job') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('new_job') }}"><i class="fas fa-id-badge"></i><span>Request New Job</span></a>
             </li>

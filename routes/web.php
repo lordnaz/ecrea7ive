@@ -32,6 +32,8 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     Route::get('/dashboard', [TaskController::class, "index"])->name('dashboard');
 
     Route::get('/new_job', [ JobController::class, "index" ])->name('new_job');
+    Route::get('/cancel_job/{ticket_id}', [ JobController::class, "cancel_job" ])->name('cancel_job');
+    Route::get('/reactivate/{ticket_id}', [ JobController::class, "reactivate" ])->name('reactivate');
     Route::post('/request_job', [ JobController::class, "request_job" ])->name('request_job');
 
     Route::get('/tracker', [ JobController::class, "tracker" ])->name('tracker');
@@ -58,7 +60,9 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     Route::get('/help_center', [ HelpCenterController::class, "index" ])->name('help_center');
 
     Route::get('/inventory', [ InventoryController::class, "index" ])->name('inventory');
-    Route::get('/add_inventory', [ InventoryController::class, "add_stock" ])->name('add_inventory');
+    Route::post('/update_stock', [ InventoryController::class, "add_stock" ])->name('update_stock');
+    Route::post('/add_transaction', [ InventoryController::class, "add_transaction" ])->name('add_transaction');
+    Route::get('/all_transaction', [ InventoryController::class, "all_transaction" ])->name('all_transaction');
     
     //only use to initiate/add base item
     Route::get('/init_inventory', [ InventoryController::class, "init_state" ])->name('init_inventory');

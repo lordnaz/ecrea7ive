@@ -16,6 +16,6 @@ class StockUpdateTrail extends Model
      */
     // protected $table = 'stock_list';
 
-    protected $fillable = ['item', 'sub_item', 'quantity', 'price', 'description', 'updated_by_name', 
+    protected $fillable = ['item', 'sub_item', 'prev_quantity', 'now_quantity', 'prev_price', 'now_price', 'description', 'updated_by_name', 
                             'updated_by_id'];
 }

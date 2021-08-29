@@ -33,14 +33,26 @@ $role = strtoupper(auth()->user()->role);
                             <h2>Welcome</h2>
                             <p class="lead">Here is your ticket ID <i>{{ $ticket }}</i> for your references. Use below panel to update and communicate througout the whole processes.</p>
                             <div class="mt-4">
-                                <a href="{{ route('new_job') }}" class="btn btn-outline-success btn-lg btn-icon icon-left">
-                                    <i class="fas fa-plus-circle"></i>Create New Job
-                                </a>
-                                @if ($data->ticket_status == "CREATED")
-                                    <a href="{{ route('new_job') }}" class="btn btn-outline-danger btn-lg btn-icon icon-left" style="margin-left: 5px;">
+                                @if ($role == "USER")
+                                    <a href="{{ route('new_job') }}" class="btn btn-outline-success btn-lg btn-icon icon-left">
+                                        <i class="fas fa-plus-circle"></i>Create New Job
+                                    </a>
+                                @endif
+                                @if ($data->ticket_status == "CREATED" && $role == "USER" && $data->active == 1)
+                                    <a href="{{ route('cancel_job', $ticket) }}" class="btn btn-outline-danger btn-lg btn-icon icon-left" style="margin-left: 5px;">
                                         <i class="fas fa-minus-circle" ></i>Cancel This Job
                                     </a>
                                 @endif
+                                @if ($data->ticket_status == "CANCELLED" && $role == "ADMIN" && $data->active == 0)
+                                    <a href="{{ route('reactivate', $ticket) }}" class="btn btn-outline-success btn-lg btn-icon icon-left" style="margin-left: 5px;">
+                                        <i class="fas fa-plus-circle" ></i>Reactivate This Job
+                                    </a>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" onclick="window.print()" class="btn btn-success icon-left btn-icon float-right"><i class="fas fa-file"></i> <span>Print Report</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -70,9 +82,14 @@ $role = strtoupper(auth()->user()->role);
                         <div class="mb-2">
                             <span class="text-job"><b>STEP 1</b></span>
                         </div>
-                        <p><span class="text-primary font-weight-bold">Created</span>. Waiting for designer to accept job.</p>
+                        @if ($data->ticket_status == "CANCELLED")
+                            <p><span class="text-primary font-weight-bold">Cancelled</span> by the Client. Please contact <span class="text-success">support@e-crea7ive.com</span> for reactivation.</p>
+                        @else
+                            <p><span class="text-primary font-weight-bold">Created</span>. Waiting for designer to accept job.</p>
+                        @endif
                         
-                        @if ($data->ticket_status == "CREATED" && $role == "ADMIN")
+                        
+                        @if ($data->ticket_status == "CREATED" && $role == "ADMIN" && $data->active == 1)
                             <div class="ticket-divider"></div>
                             <div class="text-center">
                                 <a href="{{route('acknowledged', $data->ticket_id)}}" class="btn btn-success">
@@ -85,7 +102,7 @@ $role = strtoupper(auth()->user()->role);
                 </div>
 
                 <div class="activity">
-                    @if ($data->ticket_status == "CREATED")
+                    @if ($data->ticket_status == "CREATED" || $data->ticket_status == "CANCELLED")
                         <div class="activity-icon bg-secondary text-white shadow-secondary">
                             <i class="fas fa-bell"></i>
                         </div>
@@ -102,7 +119,7 @@ $role = strtoupper(auth()->user()->role);
                         <p><span class="text-primary font-weight-bold">Acknowledge</span>. Designer preparing the artwork & design.</p>
                         
                         <div class="ticket-divider"></div>
-                        @if ($data->ticket_status == "ACKNOWLEDGE" && $role == "ADMIN")
+                        @if ($data->ticket_status == "ACKNOWLEDGE" && $role == "ADMIN" && $data->active == 1)
                             <div class="ticket-divider"></div>
                             <div class="text-center">
                                 <a href="{{route('prepared', $data->ticket_id)}}" class="btn btn-success">
@@ -132,7 +149,7 @@ $role = strtoupper(auth()->user()->role);
 
                         <div class="ticket-divider"></div>
 
-                        @if ($data->ticket_status == "REVIEW" && $role == "USER")
+                        @if ($data->ticket_status == "REVIEW" && $role == "USER" && $data->active == 1)
                             <div class="ticket-divider"></div>
                             <div class="text-center">
                                 <a href="{{route('approved', $data->ticket_id)}}" class="btn btn-primary">
@@ -160,7 +177,7 @@ $role = strtoupper(auth()->user()->role);
                         <p><span class="text-primary font-weight-bold">Delivery/Collection</span>. Design approved by client, now preparation task for final release.</p>
 
                         <div class="ticket-divider"></div>
-                        @if ($data->ticket_status == "APPROVED" && $role == "USER")
+                        @if ($data->ticket_status == "APPROVED" && $role == "USER" && $data->active == 1)
                             <div class="ticket-divider"></div>
                             <div class="text-center">
                                 <a href="{{route('received', $data->ticket_id)}}" class="btn btn-primary">
@@ -188,7 +205,7 @@ $role = strtoupper(auth()->user()->role);
                         <p><span class="text-primary font-weight-bold">Complete</span>. Order received and closed. Thank You!</p>
 
                         <div class="ticket-divider"></div>
-                        @if ($data->ticket_status == "RECEIVED" && $role == "ADMIN")
+                        @if ($data->ticket_status == "RECEIVED" && $role == "ADMIN" && $data->active == 1)
                             <div class="ticket-divider"></div>
                             <div class="text-center">
                                 <a href="{{route('closed', $data->ticket_id)}}" class="btn btn-success">
@@ -373,7 +390,7 @@ $role = strtoupper(auth()->user()->role);
 
                     @else
                         <div class="alert alert-light">
-                            Communication are BLOCKED once the ticket has been <b>CLOSED</b>
+                            Communication are BLOCKED once the ticket has been <b>CLOSED/CANCELLED</b>
                         </div>
                     @endif
                     
