@@ -8,6 +8,9 @@
         </div>
     </x-slot>
     <div>
+        <x-transaction-graph :costing="$costing"></x-transaction-graph>
+    </div>
+    <div>
         <x-transaction-table :datas="$datas"></x-transaction-table>
     </div>
 </x-app-layout>
@@ -21,29 +24,6 @@ $(document).ready(function () {
             { "sortable": false, "targets": [2,3] }
         ]
     });
-
-    // $('#dailySalesModal').on('show.bs.modal', function(e) {
-
-    //     var date = $(e.relatedTarget).data('date');
-    //     var total_order = $(e.relatedTarget).data('total_order');
-    //     var success_order = $(e.relatedTarget).data('success_order');
-    //     var cancel_order = $(e.relatedTarget).data('cancel_order');
-    //     var amount_earn = $(e.relatedTarget).data('amount_earn');
-    //     var commision = $(e.relatedTarget).data('commision');
-    //     var total_amount = $(e.relatedTarget).data('total_amount');
-    //     var settlement_id = $(e.relatedTarget).data('settlement_id');
-
-
-    //     var date2 = (date) ? $('#date2').val(date) : $('#date2').val('N/A');
-    //     var total_order2 = (total_order) ? $('#total_order2').val(total_order) : $('#total_order2').val('N/A');
-    //     var success_order2 = (success_order) ? $('#success_order2').val(success_order) : $('#success_order2').val('N/A');
-    //     var cancel_order2 = (cancel_order) ? $('#cancel_order2').val(cancel_order) : $('#cancel_order2').val('N/A');
-    //     var amount_earn2 = (amount_earn) ? $('#amount_earn2').val(amount_earn) : $('#amount_earn2').val('N/A');
-    //     var commision2 = (commision) ? $('#commision2').val(commision) : $('#commision2').val('N/A');
-    //     var total_amount2 = (total_amount) ? $('#total_amount2').val(total_amount) : $('#total_amount2').val('N/A');
-    //     var settlement_id2 = (settlement_id) ? $('#settlement_id2').val(settlement_id) : $('#settlement_id2').val('N/A');
-
-    // });
 
     $('.daterange-btn').daterangepicker({
         locale: {format: 'MMMM D, YYYY'},
@@ -62,6 +42,58 @@ $(document).ready(function () {
         $('#date_chosen').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
         $('#date_chosen_copy').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
     });
+
+
+    var costs = {!! json_encode($costing) !!};
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        datasets: [{
+        label: 'Statistics',
+        data: [costs.jan, costs.feb, costs.mar, costs.apr, costs.may, costs.jun, costs.jul, costs.aug, costs.sep, costs.oct, costs.nov, costs.dec],
+        borderWidth: 2,
+        backgroundColor: 'rgba(254, 220, 0, .2)',
+        borderWidth: 2.5,
+        borderColor: '#fedc00',
+        pointBorderWidth: 0 ,
+        pointRadius: 3.5,
+        pointBackgroundColor: '#28a745',
+        pointBorderColor: '#28a745',
+        pointHoverBackgroundColor: 'rgba(254,86,83,.8)',
+        }]
+    },
+    options: {
+        legend: {
+        display: false
+        },
+        scales: {
+        yAxes: [{
+            gridLines: {
+            drawBorder: false,
+            color: '#f2f2f2',
+            },
+            ticks: {
+            beginAtZero: true,
+            stepSize: 50,
+            callback: function(value, index, values) {
+                return '$' + value;
+            }
+            }
+        }],
+        xAxes: [{
+            gridLines: {
+            display: false,
+            tickMarkLength: 15,
+            }
+        }]
+        },
+    }
+    });
+
+
     
 });
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 Use Exception; 
+use Carbon\Carbon;
+use DateTime;
 
 use App\Models\User;
 use App\Models\Post;
@@ -90,11 +92,34 @@ class JobController extends Controller
 
     public function ticket($ticket_id){
 
-        $post_data = TrixRichText::orderBy('id', 'desc')
+        $urole = auth()->user()->role;
+
+        if($urole == 'printer'){
+
+            $assigned_dt = TrixRichText::join('posts', 'posts.id', '=', 'trix_rich_texts.model_id')
+                                        ->where('posts.ticket_id', $ticket_id)
+                                        ->where('field', 'printer')
+                                        ->select('posts.created_at')
+                                        ->first();
+
+            $assigned_dt = Carbon::parse($assigned_dt->created_at)->format('Y-m-d H:i:s');
+
+
+            $post_data = TrixRichText::orderBy('id', 'desc')
+                                    ->join('posts', 'posts.id', '=', 'trix_rich_texts.model_id')
+                                    ->where('posts.ticket_id', $ticket_id)
+                                    ->where('posts.created_at', '>=', $assigned_dt)
+                                    ->select('posts.poster_name', 'posts.role' , 'trix_rich_texts.*')
+                                    ->get();
+
+
+        }else{
+            $post_data = TrixRichText::orderBy('id', 'desc')
                                     ->join('posts', 'posts.id', '=', 'trix_rich_texts.model_id')
                                     ->where('posts.ticket_id', $ticket_id)
                                     ->select('posts.poster_name', 'posts.role' , 'trix_rich_texts.*')
                                     ->get();
+        }
         
         $ticket_collection = Ticket::where('ticket_id', $ticket_id)->first();
 
@@ -337,8 +362,8 @@ class JobController extends Controller
         $postsId = $posts->id;
 
         TrixRichText::create([
-            'field' => 'system',
-            'model_type' => 'system',
+            'field' => 'printer',
+            'model_type' => 'printer',
             'model_id' => $postsId,
             'content' => '<div><i>[System Alert]&nbsp;</i>'.$uname.' has assign printing job to <b>'.$printer_name.'</b>.</div>'
         ]);

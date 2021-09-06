@@ -34,11 +34,74 @@ class InventoryController extends Controller
 
         $datas = StockUpdateTrail::orderBy('id', 'desc')->get();
 
+        $jan = StockUpdateTrail::orderBy('id', 'desc')
+                                    ->whereBetween('created_at', ['2021-01-01', '2021-01-31'])
+                                    ->sum('now_price');
+
+        $feb = StockUpdateTrail::orderBy('id', 'desc')
+                                    ->whereBetween('created_at', ['2021-02-01', '2021-02-31'])
+                                    ->sum('now_price');
+        
+        $mar = StockUpdateTrail::orderBy('id', 'desc')
+                                    ->whereBetween('created_at', ['2021-03-01', '2021-03-31'])
+                                    ->sum('now_price');
+
+        $apr = StockUpdateTrail::orderBy('id', 'desc')
+                                    ->whereBetween('created_at', ['2021-04-01', '2021-04-31'])
+                                    ->sum('now_price');
+
+        $may = StockUpdateTrail::orderBy('id', 'desc')
+                                    ->whereBetween('created_at', ['2021-05-01', '2021-05-31'])
+                                    ->sum('now_price');
+
+        $jun = StockUpdateTrail::orderBy('id', 'desc')
+                                    ->whereBetween('created_at', ['2021-06-01', '2021-06-31'])
+                                    ->sum('now_price');
+
+        $jul = StockUpdateTrail::orderBy('id', 'desc')
+                                    ->whereBetween('created_at', ['2021-07-01', '2021-07-31'])
+                                    ->sum('now_price');
+
+        $aug = StockUpdateTrail::orderBy('id', 'desc')
+                                    ->whereBetween('created_at', ['2021-08-01', '2021-08-31'])
+                                    ->sum('now_price');
+        
+        $sep = StockUpdateTrail::orderBy('id', 'desc')
+                                    ->whereBetween('created_at', ['2021-09-01', '2021-09-31'])
+                                    ->sum('now_price');
+
+        $oct = StockUpdateTrail::orderBy('id', 'desc')
+                                    ->whereBetween('created_at', ['2021-10-01', '2021-10-31'])
+                                    ->sum('now_price');
+
+        $nov = StockUpdateTrail::orderBy('id', 'desc')
+                                    ->whereBetween('created_at', ['2021-11-01', '2021-11-31'])
+                                    ->sum('now_price');
+
+        $dec = StockUpdateTrail::orderBy('id', 'desc')
+                                    ->whereBetween('created_at', ['2021-12-01', '2021-12-31'])
+                                    ->sum('now_price');
         // return $datas;
 
         // die();
+        $costing = [
+            'jan' => $jan,
+            'feb' => $feb,
+            'mar' => $mar,
+            'apr' => $apr,
+            'may' => $may,
+            'jun' => $jun,
+            'jul' => $jul,
+            'aug' => $aug,
+            'sep' => $sep,
+            'oct' => $oct,
+            'nov' => $nov,
+            'dec' => $dec,
+        ];
 
-        return view('components.transaction_main', compact('datas'));
+        $costing = (object)$costing;
+
+        return view('components.transaction_main', compact('datas', 'costing'));
 
         // return view('components.inventory_main', [
         //     'inventory' => Inventory::class
