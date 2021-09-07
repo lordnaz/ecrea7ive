@@ -10,6 +10,9 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\JobHistoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RequestMeetingController;
+
+use App\Mail\TicketStatusEmail;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -99,5 +102,9 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     // assign printer 
     Route::post('/assign_printer/{ticket_id}', [ JobController::class, "assign_printer" ])->name('assign_printer');
     
+    // test mailable 
+    Route::get('/testmail', function(){
+        return new TicketStatusEmail();
+    });
     
 });
