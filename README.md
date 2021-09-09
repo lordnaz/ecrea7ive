@@ -11,35 +11,47 @@ we love Stisla Admin Template and Laravel 8 let's make them love each other.
 
 Include simple Data Table with Livewire (CRUD).
 
-## What next?
-After clone or download this repository, next step is install all dependency required by laravel and laravel-mix.
 
-```shell
+e-Crea7ive SerbaDK
+=================
+
+A Laravel Jetstream project with Livewire + Blade + Bootstrap 4 + StislaUI
+
+## Project Details
+- Project : e-crea7ive
+- Version : v2.0
+- Author : Nazrul Hanif / Fatin Farhana
+- Date Created : 20210910
+
 # install composer-dependency
 $ composer install
 # install npm package
 $ npm install
 # build dev 
 $ npm run dev
-```
 
-Before we start web server make sure we already generate app key, configure `.env` file and do migration.
-
-```shell
 # create copy of .env
 $ cp .env.example .env
 # create laravel key
 $ php artisan key:generate
 # laravel migrate
 $ php artisan migrate
-```
+# markdown mailable
+$ php artisan vendor:publish --tag=laravel-mail
+# jetstream view
+$ php artisan vendor:publish --tag=jetstream-views
+# trix laravel [Amaelftah](https://github.com/amaelftah/laravel-trix)
+$ php artisan vendor:publish --provider="Te7aHoudini\LaravelTrix\LaravelTrixServiceProvider"
 
-## How does it look?
 
-<p align="center">
-    <img src="https://telegra.ph/file/49c7571f06872948fb0bc.png" width="80%" height="auto" />
-    <img src="https://telegra.ph/file/613288c34841388c24f34.png" width="80%" height="auto" />
-    <img src="https://telegra.ph/file/7f893b085f7aaca5b91be.png" width="80%" height="auto" />
-    <img src="https://telegra.ph/file/8741e5fc455f02571b4c2.png" width="80%" height="auto" />
-</p>
+## Project Contributor
+- Developer 1 : [Nazrul Hanif](https://github.com/lordnaz)
+- Developer 2 : [Fatin Farhana](https://github.com/noorfatinfarhanaharith)
 
+
+## Support 
+
+For Support & Inquiry kindly contact me at:-
+
+- Click [Nazrul Hanif](https://github.com/lordnaz) || [Fatin Farhana](https://github.com/noorfatinfarhanaharith) to go to developer profile.
+- Or email me at nazrul.workspace@gmail.com
