@@ -13,14 +13,14 @@ class Post extends Model
 
     use HasTrixRichText;
 
-    // protected $guarded = [];
+    protected $guarded = [];
 
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'posts';
+    // protected $table = 'posts';
 
     // protected $fillable = [
     //                         'id', 
