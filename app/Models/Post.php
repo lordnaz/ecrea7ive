@@ -22,19 +22,19 @@ class Post extends Model
      */
     protected $table = 'posts';
 
-    protected $fillable = [
-                            'id', 
-                            'poster_name', 
-                            'role', 
-                            'ticket_id', 
-                            'created_by',
-                            'created_at',
-                            'updated_at'
-                        ];
+    // protected $fillable = [
+    //                         'id', 
+    //                         'poster_name', 
+    //                         'role', 
+    //                         'ticket_id', 
+    //                         'created_by',
+    //                         'created_at',
+    //                         'updated_at'
+    //                     ];
 
     // protected $casts = [
     //     'created_at' => 'datetime',
     //     'updated_at' => 'datetime',
     // ];
-    protected $dates = ['created_at', 'updated_at'];
+    // protected $dates = ['created_at', 'updated_at'];
 }
