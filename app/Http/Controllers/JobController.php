@@ -112,7 +112,7 @@ class JobController extends Controller
                 $admin_email = $data['email'];
                 // $printer_email = auth()->user()->find($printer_id)->email;
 
-            Mail::to($admin_email)
+                Mail::to($admin_email)
                     ->send(new TicketStatusEmail($details));
             }
 
@@ -353,7 +353,18 @@ class JobController extends Controller
         $admin_email = auth()->user()->email;
         // $test_email = 'nazrul.workspace@gmail.com';
 
-        Mail::to($admin_email)->send(new TicketStatusEmail($details));
+        $adminObj = User::where('role', 'admin')
+                        ->orWhere('role', 'superadmin')
+                        ->get();
+
+        foreach ($adminObj as $data) {
+            $admin_email = $data['email'];
+            // $printer_email = auth()->user()->find($printer_id)->email;
+
+            Mail::to($admin_email)
+                ->send(new TicketStatusEmail($details));
+        }
+
         // End of Email Section 
 
         return redirect()->route('ticket', $ticket_id);
@@ -404,10 +415,17 @@ class JobController extends Controller
             'ticket_status' => $job_status
         ];
 
-        $admin_email = auth()->user()->email;
-        // $test_email = 'nazrul.workspace@gmail.com';
+        $adminObj = User::where('role', 'admin')
+                        ->orWhere('role', 'superadmin')
+                        ->get();
 
-        Mail::to($admin_email)->send(new TicketStatusEmail($details));
+        foreach ($adminObj as $data) {
+            $admin_email = $data['email'];
+            // $printer_email = auth()->user()->find($printer_id)->email;
+
+            Mail::to($admin_email)
+                ->send(new TicketStatusEmail($details));
+        }
         // End of Email Section 
 
         return redirect()->route('ticket', $ticket_id);
@@ -463,6 +481,19 @@ class JobController extends Controller
         // $test_email = 'nazrul.workspace@gmail.com';
 
         Mail::to($receiver_email)->send(new TicketStatusEmail($details));
+
+        $adminObj = User::where('role', 'admin')
+                        ->orWhere('role', 'superadmin')
+                        ->get();
+
+        foreach ($adminObj as $data) {
+            $admin_email = $data['email'];
+            // $printer_email = auth()->user()->find($printer_id)->email;
+
+            Mail::to($admin_email)
+                ->send(new TicketStatusEmail($details));
+        }
+
         // End of Email Section 
 
         return redirect()->route('ticket', $ticket_id);
@@ -581,12 +612,24 @@ class JobController extends Controller
         ];
 
         // $test_email = 'nazrul.workspace@gmail.com';
-        $admin_email = auth()->user()->email;
+        // $admin_email = auth()->user()->email;
         // $printer_email = auth()->user()->find($printer_id)->email;
 
-        Mail::to($admin_email)
-            ->cc($receiver_email)
+        Mail::to($receiver_email)
             ->send(new TicketStatusEmail($details));
+
+        $adminObj = User::where('role', 'admin')
+            ->orWhere('role', 'superadmin')
+            ->get();
+
+        foreach ($adminObj as $data) {
+            $admin_email = $data['email'];
+            // $printer_email = auth()->user()->find($printer_id)->email;
+
+            Mail::to($admin_email)
+                ->send(new TicketStatusEmail($details));
+        }
+            
         // End of Email Section 
 
         return redirect()->route('ticket', $ticket_id);
@@ -637,13 +680,21 @@ class JobController extends Controller
             'ticket_status' => $job_status
         ];
 
-        // $test_email = 'nazrul.workspace@gmail.com';
-        $admin_email = auth()->user()->email;
-        // $printer_email = auth()->user()->find($printer_id)->email;
-
         Mail::to($receiver_email)
-            ->cc($admin_email)
             ->send(new TicketStatusEmail($details));
+
+        $adminObj = User::where('role', 'admin')
+            ->orWhere('role', 'superadmin')
+            ->get();
+
+        foreach ($adminObj as $data) {
+            $admin_email = $data['email'];
+            // $printer_email = auth()->user()->find($printer_id)->email;
+
+            Mail::to($admin_email)
+                ->send(new TicketStatusEmail($details));
+        }
+        
         // End of Email Section 
 
         return redirect()->route('ticket', $ticket_id);
