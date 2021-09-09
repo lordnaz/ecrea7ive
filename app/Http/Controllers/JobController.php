@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 Use Exception; 
+use Carbon\Carbon;
+use DateTime;
 
 use App\Models\User;
 use App\Models\Post;
@@ -11,12 +13,16 @@ use App\Models\TrixAttachment;
 use App\Models\TrixRichText;
 use App\Models\Ticket;
 
+use App\Mail\TicketStatusEmail;
+use Illuminate\Support\Facades\Mail;
+
 class JobController extends Controller
 {
     //
     public function index ()
     {
         return view('components.new_job_main');
+
     }
 
     public function request_job (Request $req){
@@ -80,6 +86,39 @@ class JobController extends Controller
                 'updated_at' => $currentdt,
             ]);
 
+            // Email Section 
+            // $ticketObj = Ticket::where('ticket_id', $ticket_id)->first();
+
+            // $receiver_name = $ticketObj['pic_name'];
+            // $receiver_email = $ticketObj['pic_email'];
+            // $job_status = $ticketObj['ticket_status'];
+
+            $details = [
+                'pic_name' => $req->pic_name,
+                'pic_email' => $req->pic_email,
+                'ticket_id' => $ticket_id,
+                'ticket_status' => 'CREATED'
+            ];
+
+            // $test_email = 'nazrul.workspace@gmail.com';
+            $adminObj = User::where('role', 'admin')
+                                ->orWhere('role', 'superadmin')
+                                ->get();
+
+            Mail::to($req->pic_email)
+                    ->send(new TicketStatusEmail($details));
+
+            foreach ($adminObj as $data) {
+                $admin_email = $data['email'];
+                // $printer_email = auth()->user()->find($printer_id)->email;
+
+            Mail::to($admin_email)
+                    ->send(new TicketStatusEmail($details));
+            }
+
+            
+            // End of Email Section 
+
             return redirect()->route('ticket', ['ticket_id' => $ticket_id]);
             
         } catch (Exception $e) {
@@ -94,11 +133,34 @@ class JobController extends Controller
 
     public function ticket($ticket_id){
 
-        $post_data = TrixRichText::orderBy('id', 'desc')
+        $urole = auth()->user()->role;
+
+        if($urole == 'printer'){
+
+            $assigned_dt = TrixRichText::join('posts', 'posts.id', '=', 'trix_rich_texts.model_id')
+                                        ->where('posts.ticket_id', $ticket_id)
+                                        ->where('field', 'printer')
+                                        ->select('posts.created_at')
+                                        ->first();
+
+            $assigned_dt = Carbon::parse($assigned_dt->created_at)->format('Y-m-d H:i:s');
+
+
+            $post_data = TrixRichText::orderBy('id', 'desc')
+                                    ->join('posts', 'posts.id', '=', 'trix_rich_texts.model_id')
+                                    ->where('posts.ticket_id', $ticket_id)
+                                    ->where('posts.created_at', '>=', $assigned_dt)
+                                    ->select('posts.poster_name', 'posts.role' , 'trix_rich_texts.*')
+                                    ->get();
+
+
+        }else{
+            $post_data = TrixRichText::orderBy('id', 'desc')
                                     ->join('posts', 'posts.id', '=', 'trix_rich_texts.model_id')
                                     ->where('posts.ticket_id', $ticket_id)
                                     ->select('posts.poster_name', 'posts.role' , 'trix_rich_texts.*')
                                     ->get();
+        }
         
         $ticket_collection = Ticket::where('ticket_id', $ticket_id)->first();
 
@@ -163,6 +225,26 @@ class JobController extends Controller
         ]);
 
 
+        // Email Section 
+        $ticketObj = Ticket::where('ticket_id', $ticket_id)->first();
+
+        $receiver_name = $ticketObj['pic_name'];
+        $receiver_email = $ticketObj['pic_email'];
+        $job_status = $ticketObj['ticket_status'];
+
+        $details = [
+            'pic_name' => $receiver_name,
+            'pic_email' => $receiver_email,
+            'ticket_id' => $ticket_id,
+            'ticket_status' => $job_status
+        ];
+
+        // $test_email = 'nazrul.workspace@gmail.com';
+
+        Mail::to($receiver_email)->send(new TicketStatusEmail($details));
+        // End of Email Section 
+
+
         return redirect()->route('ticket', $ticket_id);
 
     }
@@ -199,6 +281,26 @@ class JobController extends Controller
             'content' => '<div><i>[System Alert]&nbsp;</i> Artwork has been prepared by '.$uname.'. Review session <b class="text-primary">Undergoing</b></div>'
         ]);
 
+
+        // Email Section 
+        $ticketObj = Ticket::where('ticket_id', $ticket_id)->first();
+
+        $receiver_name = $ticketObj['pic_name'];
+        $receiver_email = $ticketObj['pic_email'];
+        $job_status = $ticketObj['ticket_status'];
+
+        $details = [
+            'pic_name' => $receiver_name,
+            'pic_email' => $receiver_email,
+            'ticket_id' => $ticket_id,
+            'ticket_status' => $job_status
+        ];
+
+        // $test_email = 'nazrul.workspace@gmail.com';
+
+        Mail::to($receiver_email)->send(new TicketStatusEmail($details));
+        // End of Email Section 
+
         return redirect()->route('ticket', $ticket_id);
     }
 
@@ -234,6 +336,26 @@ class JobController extends Controller
             'content' => '<div><i>[System Alert]&nbsp;</i> Artwork has been <span class="text-primary">Approved</span> by client. Please proceed with delivery/collection tasks.</div>'
         ]);
 
+        // Email Section 
+        $ticketObj = Ticket::where('ticket_id', $ticket_id)->first();
+
+        $receiver_name = $ticketObj['pic_name'];
+        $receiver_email = $ticketObj['pic_email'];
+        $job_status = $ticketObj['ticket_status'];
+
+        $details = [
+            'pic_name' => $receiver_name,
+            'pic_email' => $receiver_email,
+            'ticket_id' => $ticket_id,
+            'ticket_status' => $job_status
+        ];
+
+        $admin_email = auth()->user()->email;
+        // $test_email = 'nazrul.workspace@gmail.com';
+
+        Mail::to($admin_email)->send(new TicketStatusEmail($details));
+        // End of Email Section 
+
         return redirect()->route('ticket', $ticket_id);
     }
 
@@ -267,6 +389,26 @@ class JobController extends Controller
             'model_id' => $postsId,
             'content' => '<div><i>[System Alert]&nbsp;</i> Item has been <span class="text-primary">Received</span> by the client.</div>'
         ]);
+
+        // Email Section 
+        $ticketObj = Ticket::where('ticket_id', $ticket_id)->first();
+
+        $receiver_name = $ticketObj['pic_name'];
+        $receiver_email = $ticketObj['pic_email'];
+        $job_status = $ticketObj['ticket_status'];
+
+        $details = [
+            'pic_name' => $receiver_name,
+            'pic_email' => $receiver_email,
+            'ticket_id' => $ticket_id,
+            'ticket_status' => $job_status
+        ];
+
+        $admin_email = auth()->user()->email;
+        // $test_email = 'nazrul.workspace@gmail.com';
+
+        Mail::to($admin_email)->send(new TicketStatusEmail($details));
+        // End of Email Section 
 
         return redirect()->route('ticket', $ticket_id);
     }
@@ -303,6 +445,25 @@ class JobController extends Controller
             'model_id' => $postsId,
             'content' => '<div><i>[System Alert]&nbsp;</i>Ticket <span class="text-danger">Closed</span> by Admin. Thank you for using <b>e-Crea7ive</b> services.</div>'
         ]);
+
+        // Email Section 
+        $ticketObj = Ticket::where('ticket_id', $ticket_id)->first();
+
+        $receiver_name = $ticketObj['pic_name'];
+        $receiver_email = $ticketObj['pic_email'];
+        $job_status = $ticketObj['ticket_status'];
+
+        $details = [
+            'pic_name' => $receiver_name,
+            'pic_email' => $receiver_email,
+            'ticket_id' => $ticket_id,
+            'ticket_status' => $job_status
+        ];
+
+        // $test_email = 'nazrul.workspace@gmail.com';
+
+        Mail::to($receiver_email)->send(new TicketStatusEmail($details));
+        // End of Email Section 
 
         return redirect()->route('ticket', $ticket_id);
     }
@@ -341,11 +502,34 @@ class JobController extends Controller
         $postsId = $posts->id;
 
         TrixRichText::create([
-            'field' => 'system',
-            'model_type' => 'system',
+            'field' => 'printer',
+            'model_type' => 'printer',
             'model_id' => $postsId,
             'content' => '<div><i>[System Alert]&nbsp;</i>'.$uname.' has assign printing job to <b>'.$printer_name.'</b>.</div>'
         ]);
+
+        // Email Section 
+        $ticketObj = Ticket::where('ticket_id', $ticket_id)->first();
+
+        $receiver_name = $ticketObj['pic_name'];
+        $receiver_email = $ticketObj['pic_email'];
+        $job_status = $ticketObj['ticket_status'];
+
+        $details = [
+            'pic_name' => $receiver_name,
+            'pic_email' => $receiver_email,
+            'ticket_id' => $ticket_id,
+            'ticket_status' => $job_status
+        ];
+
+        // $test_email = 'nazrul.workspace@gmail.com';
+        $admin_email = auth()->user()->email;
+        $printer_email = auth()->user()->find($printer_id)->email;
+
+        Mail::to($printer_email)
+            ->cc($admin_email)
+            ->send(new TicketStatusEmail($details));
+        // End of Email Section 
 
         return redirect()->route('ticket', $ticket_id);
 
@@ -382,6 +566,29 @@ class JobController extends Controller
             'content' => '<div><i>[System Alert]&nbsp;</i>Job has been <span class="text-danger">Cancelled</span> by Client.</div>'
         ]);
 
+        // Email Section 
+        $ticketObj = Ticket::where('ticket_id', $ticket_id)->first();
+
+        $receiver_name = $ticketObj['pic_name'];
+        $receiver_email = $ticketObj['pic_email'];
+        $job_status = $ticketObj['ticket_status'];
+
+        $details = [
+            'pic_name' => $receiver_name,
+            'pic_email' => $receiver_email,
+            'ticket_id' => $ticket_id,
+            'ticket_status' => $job_status
+        ];
+
+        // $test_email = 'nazrul.workspace@gmail.com';
+        $admin_email = auth()->user()->email;
+        // $printer_email = auth()->user()->find($printer_id)->email;
+
+        Mail::to($admin_email)
+            ->cc($receiver_email)
+            ->send(new TicketStatusEmail($details));
+        // End of Email Section 
+
         return redirect()->route('ticket', $ticket_id);
 
     }
@@ -415,6 +622,29 @@ class JobController extends Controller
             'model_id' => $postsId,
             'content' => '<div><i>[System Alert]&nbsp;</i>Job has been <span class="text-success">Reactivated</span> by '.$uname.'.</div>'
         ]);
+
+        // Email Section 
+        $ticketObj = Ticket::where('ticket_id', $ticket_id)->first();
+
+        $receiver_name = $ticketObj['pic_name'];
+        $receiver_email = $ticketObj['pic_email'];
+        $job_status = $ticketObj['ticket_status'];
+
+        $details = [
+            'pic_name' => $receiver_name,
+            'pic_email' => $receiver_email,
+            'ticket_id' => $ticket_id,
+            'ticket_status' => $job_status
+        ];
+
+        // $test_email = 'nazrul.workspace@gmail.com';
+        $admin_email = auth()->user()->email;
+        // $printer_email = auth()->user()->find($printer_id)->email;
+
+        Mail::to($receiver_email)
+            ->cc($admin_email)
+            ->send(new TicketStatusEmail($details));
+        // End of Email Section 
 
         return redirect()->route('ticket', $ticket_id);
     }

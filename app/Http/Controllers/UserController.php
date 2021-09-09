@@ -60,9 +60,10 @@ class UserController extends Controller
 
             $createUser->save();
 
+            $createUser->id;
 
             $leaves = UsersDetail::create([
-                'user_id' => $user_id,
+                'user_id' => $createUser->id,
                 'company_name' => $req->company_name,
                 'hod' => $req->hod,
                 'branch' => $req->branch,

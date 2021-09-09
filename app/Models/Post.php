@@ -13,5 +13,28 @@ class Post extends Model
 
     use HasTrixRichText;
 
-    protected $guarded = [];
+    // protected $guarded = [];
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'posts';
+
+    protected $fillable = [
+                            'id', 
+                            'poster_name', 
+                            'role', 
+                            'ticket_id', 
+                            'created_by',
+                            'created_at',
+                            'updated_at'
+                        ];
+
+    // protected $casts = [
+    //     'created_at' => 'datetime',
+    //     'updated_at' => 'datetime',
+    // ];
+    protected $dates = ['created_at', 'updated_at'];
 }

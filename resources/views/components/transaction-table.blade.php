@@ -1,7 +1,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h4>All Strock Transaction</h4>
+        <h4>All Stock Transaction</h4>
     </div>
     <div class="card-body">
 

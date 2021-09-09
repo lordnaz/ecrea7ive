@@ -186,21 +186,21 @@ $details = Auth::user()->usersdetail;
 
                     <div class="form-group">
                         <label>Company Name</label>
-                        <input type="text" class="form-control" name="pic_company_name" required>
+                        <input type="text" class="form-control" name="pic_company_name" value="{{$details->company_name ?? ''}}" required>
                     </div>
 
                     <div class="form-group">
                         <label>HOD</label>
-                        <input type="text" class="form-control" name="pic_hod" required>
+                        <input type="text" class="form-control" name="pic_hod" value="{{$details->hod ?? ''}}" required>
                     </div>
                     <div class="form-group">
                         <label>Branch</label>
-                        <input type="text" class="form-control" name="pic_branch" required>
+                        <input type="text" class="form-control" name="pic_branch" value="{{$details->branch ?? ''}}" required>
                     </div>
 
                     <div class="form-group">
                         <label>Department</label>
-                        <input type="text" class="form-control" name="pic_department" required>
+                        <input type="text" class="form-control" name="pic_department" value="{{$details->department ?? ''}}" required>
                     </div>
 
                     
