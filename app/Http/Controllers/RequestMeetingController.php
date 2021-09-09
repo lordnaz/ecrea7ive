@@ -41,7 +41,7 @@ class RequestMeetingController extends Controller
         $dateRange = explode( '-', $req->datetimes);
 
         $start_date = $dateRange[0]."-".$dateRange[1]."-".$dateRange[2];
-        $end_date = $dateRange[3]."-".$dateRange[4]."-".$dateRange[5];
+        // $end_date = $dateRange[3]."-".$dateRange[4]."-".$dateRange[5];
 
         $status = 'PENDING';
         $requestMeeting = PendingMeeting::create([
@@ -51,8 +51,8 @@ class RequestMeetingController extends Controller
             'department' => $req->department,
             'startdate' => $req->datetimes,
             'job_status'=>$status,
-            'startdate'=> $start_date,
-            'enddate'=>$end_date,
+            // 'startdate'=> $start_date,
+            // 'enddate'=>$end_date,
             'updated_at' => $currentdt,
             'created_at' => $currentdt,
            

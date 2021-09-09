@@ -59,6 +59,21 @@ class UserController extends Controller
 
 
             $createUser->save();
+
+
+            $leaves = UsersDetail::create([
+                'user_id' => $user_id,
+                'company_name' => $req->company_name,
+                'hod' => $req->hod,
+                'branch' => $req->branch,
+                'department' => $req->department,
+                'created_at' => $currentdt,
+                'updated_at' => $currentdt,
+               
+                ]);
+
+
+
         }
 
         return redirect()->route('user.new')->with('success','Successfully created new user!');

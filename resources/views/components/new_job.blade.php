@@ -184,6 +184,25 @@ $details = Auth::user()->usersdetail;
                         <input type="text" class="form-control" name="pic_postcode" value="{{$details->postcode ?? ''}}" required>
                     </div>
 
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" class="form-control" name="pic_company_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>HOD</label>
+                        <input type="text" class="form-control" name="pic_hod" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Branch</label>
+                        <input type="text" class="form-control" name="pic_branch" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" class="form-control" name="pic_department" required>
+                    </div>
+
                     
     
                     <div class="form-group" style="margin-bottom: 70px;">

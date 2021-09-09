@@ -8,7 +8,7 @@ $user = auth()->user();
 #echo request();
 @endphp
 @include('flash-message')   
-@if ($role ==  "admin") 
+@if ($role ==  "admin" || $role ==  "superadmin" ) 
 <div class="card">
     <div class="row">
  
@@ -166,7 +166,7 @@ $user = auth()->user();
 </div>
 </div>
     @endif   
-    @if ($role != "admin") 
+    @if ($role == "user" || $role == "printer") 
    
     <div class="row">
 

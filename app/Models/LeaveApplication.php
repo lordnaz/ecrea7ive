@@ -19,6 +19,7 @@ class LeaveApplication extends Model
      
     protected $fillable = [
         'name',
+        'leaves_status',
         'user_id',
         'startdate',
         'enddate',

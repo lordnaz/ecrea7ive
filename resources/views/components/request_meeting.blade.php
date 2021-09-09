@@ -73,11 +73,13 @@ $name = auth()->user()->name;
                    
             
                     <div class="form-group">
-                        <label>Start Date and End Date</label>
-                        <input type="text" class="form-control daterange-time" name="datetimes">
+                        <label>Start Date</label>
+                        <input type="text" class="form-control datetimepicker" name="datetimes">
                     </div>
 
         
+
+
                     
                     <div class="form-group" style="margin-bottom: 70px;">
                         <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Submit</button>
@@ -134,10 +136,9 @@ $name = auth()->user()->name;
                                     <b>{{ $listMeeting->description }}</b>
                                     </td>
                                     <td>
-                                    Start Date : 
+                                    Start Date : <br>
                                     <b>{{ $listMeeting->startdate }}</b><br>
-                                    End Date : 
-                                    <b>{{ $listMeeting->enddate }}</b>
+                                   
                                     </td>
                                     <td>
                                     @if($listMeeting->job_status == "PENDING")
@@ -149,6 +150,8 @@ $name = auth()->user()->name;
                                      @elseif($listMeeting->job_status == "REJECTED")
                                      <span class="badge badge-pill badge-danger">Rejected</span>
                                     @endif
+
+                                    
 
                                     
 

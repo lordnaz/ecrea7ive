@@ -57,9 +57,13 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     Route::get('/approve_meeting', [ ApproveController::class, "index" ])->name('approve_meeting');
     Route::get('/appMeeting/{id}', [ ApproveController::class, "appMeeting" ])->name('appMeeting');
     Route::get('/rejMeeting/{id}', [ ApproveController::class, "rejMeeting" ])->name('rejMeeting');
+    Route::get('/meeting_edit/{id}', [ ApproveController::class, "meeting_edit" ])->name('meeting_edit');
+    Route::post('/updateMeeting', [ ApproveController::class, "updateMeeting" ])->name('updateMeeting');
+
 
     Route::get('/request_meeting', [ RequestMeetingController::class, "index" ])->name('request_meeting');
     Route::post('/requestMeeting', [ RequestMeetingController::class, "requestMeeting" ])->name('requestMeeting');
+    
    
    
    
@@ -80,6 +84,7 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     Route::post('/update_stock', [ InventoryController::class, "add_stock" ])->name('update_stock');
     Route::post('/add_transaction', [ InventoryController::class, "add_transaction" ])->name('add_transaction');
     Route::get('/all_transaction', [ InventoryController::class, "all_transaction" ])->name('all_transaction');
+    Route::post('/addStock', [ InventoryController::class, "addStock" ])->name('addStock');
     
     //only use to initiate/add base item
     Route::get('/init_inventory', [ InventoryController::class, "init_state" ])->name('init_inventory');

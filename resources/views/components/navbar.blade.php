@@ -3,7 +3,7 @@ $user = auth()->user();
 
 @endphp
 
-<div class="navbar-bg bg-success"></div>
+<div class="navbar-bg bg-header"></div>
 <nav class="navbar navbar-expand-lg main-navbar">
     <form class="form-inline mr-auto">
         <ul class="navbar-nav mr-3">

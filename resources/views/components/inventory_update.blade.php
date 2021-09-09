@@ -275,6 +275,59 @@ $role = auth()->user()->role;
 
 
 
+<div class="card col-lg-12 col-md-12">
+    <div class="card-header">
+        <h4 class="section-title">Add Stock</h4>
+        <div class="card-header-action">
+            <a data-collapse="#mycard-collapse3" class="btn btn-icon btn-success" href="#"><i class="fas fa-minus"></i></a>
+        </div>
+    </div>
+    <div class="collapse show" id="mycard-collapse3" style="">
+        <div class="card-body">
+            
+
+            <div class="row">
+                <div class="col-5">
+
+                    <div class="alert alert-warning text-dark">
+                        <b>Key-in properly!</b> submission of this form will affecting the <b>Stock Monitor</b>.
+                    </div>
+                    <form action="/addStock" method="post" enctype="multipart/form-data" accept-charset='UTF-8'>
+                    <!-- <form method="POST" action="{{ route('update_stock') }}"> -->
+                        @csrf
+    
+                        <div class="form-group">
+                            <label>Item</label>
+                            <input type="text" class="form-control" name="item" id="item" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Sub Item</label>
+                            <input type="text" class="form-control" name="sub_item" id="sub_item" required>
+                        </div>
+    
+                        <div class="form-group text-right" style="margin-top: 15px;">
+                            <button type="submit" class="btn btn-primary">
+                                Add Stock
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-1"></div>
+
+                <div class="col-5">
+
+                    
+
+                </div>
+
+                <div class="col-1"></div>
+                
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

@@ -67,7 +67,24 @@
                         <input type="text" class="form-control" name="position">
                     </div>
 
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" class="form-control" name="company_name">
+                    </div>
 
+                    <div class="form-group">
+                        <label>HOD</label>
+                        <input type="text" class="form-control" name="hod">
+                    </div>
+                    <div class="form-group">
+                        <label>Branch</label>
+                        <input type="text" class="form-control" name="branch">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" class="form-control" name="department">
+                    </div>
         
                     
                     <div class="form-group" style="margin-bottom: 70px;">

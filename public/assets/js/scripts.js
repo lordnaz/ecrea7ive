@@ -589,10 +589,10 @@ $(function() {
     }
     if($(".datetimepicker").length) {
       $('.datetimepicker').daterangepicker({
-        locale: {format: 'YYYY-MM-DD HH:mm'},
+        locale: {format: 'DD-MM-YYYY HH:mm A'},
         singleDatePicker: true,
         timePicker: true,
-        timePicker24Hour: true,
+        // timePicker24Hour: true,
       });
     }
     if($(".daterange").length) {

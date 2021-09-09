@@ -17,6 +17,7 @@ class CreateLeavesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->index();
             $table->string('name');
+            $table->string('leaves_status');
             $table->string('startdate');
             $table->string('enddate');
             $table->timestamps();

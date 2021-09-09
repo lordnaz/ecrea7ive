@@ -49,6 +49,22 @@
 
 <script>
 
+
+  
+    // $('#datetimepicker1').datetimepicker();
+ 
+    $('.datetimepicker').daterangepicker({
+        locale: {format: 'DD-MM-YYYY HH:mm p'},
+        singleDatePicker: true,
+        timePicker: true,
+        // timePicker24Hour: true,
+      });
+    
+
+
+
+
+
 $("#table-4").dataTable({
         "columnDefs": [
             { "sortable": false, "targets": [0,2,3] }

@@ -100,6 +100,9 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
 .bg-dark {
   background-color: #191d21 !important; }
 
+.bg-header {
+  background-color: #fedc00 !important; }
+
 .text-primary, .text-primary-all *, .text-primary-all *:before, .text-primary-all *:after {
   color: #6777ef !important; }
 

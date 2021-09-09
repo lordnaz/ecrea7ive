@@ -71,7 +71,7 @@ $user = auth()->user();
 
             @endif
 
-            @if ($role =="admin")
+            @if ($role =="admin" || $role =="superadmin")
                 <li class="{{ Request::routeIs('register_leaves') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('register_leaves') }}"><i class="fas fa-hiking"></i><span>Register Leaves</span></a>
                 </li>
@@ -83,7 +83,7 @@ $user = auth()->user();
                 <a class="nav-link" href="{{ route('request_meeting') }}"><i class="fas fa-tasks"></i><span>Request Meeting</span></a>
             </li>
             @endif
-            @if ($role !="admin")
+            @if ($role =="user" || $role =="printer")
             <li class="{{ Request::routeIs('register_leaves') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('register_leaves') }}"><i class="fas fa-hiking"></i><span>Leaves</span></a>
             </li>

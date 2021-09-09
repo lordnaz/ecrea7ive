@@ -30,6 +30,10 @@ class CreateTicketsTable extends Migration
             $table->string('pic_office_no')->nullable();
             $table->string('pic_address');
             $table->string('pic_postcode');
+            $table->string('pic_company_name');
+            $table->string('pic_branch');
+            $table->string('pic_department');
+            $table->string('pic_hod');
             $table->foreignId('printer')->nullable()->index();
             $table->boolean('active')->default(true);
             $table->foreignId('created_by')->index();

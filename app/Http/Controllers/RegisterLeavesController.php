@@ -18,10 +18,10 @@ class RegisterLeavesController extends Controller
 
         // print $user_id;
         
-        if($user_id == $user_id &&($role =='admin')){
-            $leavesApplication = LeaveApplication::orderBy('user_id', 'desc')->where('user_id', $user_id)->get();
+        if($user_id == $user_id &&($role =='superadmin' || $role =='admin')){
+            $leavesApplication = LeaveApplication::orderBy('user_id', 'desc')->where('user_id', $user_id)->where('leaves_status', 'REQUESTED')->get();
         }else{
-            $leavesApplication = LeaveApplication::orderBy('user_id', 'desc')->get();
+            $leavesApplication = LeaveApplication::orderBy('user_id', 'desc')->where('leaves_status', 'REQUESTED')->get();
         }
         
         return view('components.register_leaves_main', compact('leavesApplication'));
@@ -62,7 +62,7 @@ class RegisterLeavesController extends Controller
     public function requestleaves(Request $req){
         $user_id = auth()->user()->id;
         
-
+        $leaves_status = 'REQUESTED';
         $data = $req->input();
 
      
@@ -78,6 +78,7 @@ class RegisterLeavesController extends Controller
         $leaves = LeaveApplication::create([
         'user_id' => $user_id,
         'name' => $req->fullname,
+        'leaves_status'=>$leaves_status,
         'startdate'=> $start_date,
         'enddate'=>$end_date,
         'updated_at' => $currentdt,
@@ -157,7 +158,12 @@ class RegisterLeavesController extends Controller
     public function delete($id)
     {
 
-        $delete = LeaveApplication::where('id', $id)->delete();
+        $leaves_status = 'DELETED';
+        $delete = LeaveApplication::where('id', $id)->update([
+        'leaves_status'=>$leaves_status,
+
+
+        ]);
         
         return redirect()->route('register_leaves')->with('error','Item deleted!');
     }

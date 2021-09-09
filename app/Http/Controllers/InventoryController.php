@@ -147,50 +147,37 @@ class InventoryController extends Controller
     public function init_state(){
 
         $datas = array (
-            array("ANNUAL REPORT",null),
-            array("ART CARD","260gsm - A3+"),
-            array("ART PAPER","128gsm - A3"),
-            array("ART PAPER","128gsm - A3+"),
-            array("ART PAPER","157gsm - A3"),
-            array("ART PAPER","157gsm - A3+"),
-            array("COMPANY PROFILE",null),
-            array("CONQUEROR",null),
-            array("ENVELOPE","SDGB (A3+)"),
-            array("ENVELOPE","SDGB (A4)"),
-            array("ENVELOPE","SDGB (A4+)"),
-            array("ENVELOPE","SDGB (WINDOW)"),
-            array("ENVELOPE","ENVELOPE - SDHB (A3+)"),
-            array("ENVELOPE","ENVELOPE - SDHB (A4)"),
-            array("ENVELOPE","ENVELOPE - SDHB (A4+)"),
-            array("ENVELOPE","ENVELOPE - SDHB (WINDOW)"),
-            array("ENVELOPE","ENVELOPE - SDIL (A3+)"),
-            array("ENVELOPE","ENVELOPE - SDIL (A4)"),
-            array("ENVELOPE","ENVELOPE - SDIL (A4+)"),
-            array("ENVELOPE","ENVELOPE - SDIL (WINDOW)"),
-            array("ENVELOPE","SDSB (A3+)"),
-            array("ENVELOPE","SDSB (A4)"),
-            array("ENVELOPE","SDSB (A4+)"),
-            array("ENVELOPE","SDSB (WINDOW)"),
-            array("IVORY CARD","CREAM"),
-            array("IVORY CARD","WHITE"),
-            array("LETTERHEAD","EMIRTECH"),
-            array("LETTERHEAD","ENERTECH"),
-            array("LETTERHEAD","SDAE"),
+            array("NOTEBOOK ","A6"),
+            array("NOTEBOOK ","A4"),
+            array("SIMILI ","A4"),
+            array("SIMILI ","A3"),
+            array("ART CARD","260gsm A3+"),
+            array("ART PAPER","128gsm A3"),
+            array("ART PAPER","128gsm A3+"),
+            array("ART PAPER","157gsm A3"),
+            array("ART PAPER","157gsm A3+"),
             array("LETTERHEAD","SDGB"),
             array("LETTERHEAD","SDHB"),
             array("LETTERHEAD","SDIL"),
             array("LETTERHEAD","SDSB"),
-            array("NOTEBOOK ","A4"),
-            array("NOTEBOOK ","A6"),
-            array("PLASTIC BINDING","10mm"),
-            array("PLASTIC BINDING","14mm"),
-            array("PLASTIC BINDING","8mm"),
-            array("SIMILI ","A3"),
-            array("SIMILI ","A4"),
-            array("WIRE BINDING","14.3mm"),
-            array("WIRE BINDING","16mm"),
-            array("WIRE BINDING","19mm"),
-            array("WIRE BINDING","25.4mm")
+            array("ENVELOPE","SDGB A4"),
+            array("ENVELOPE","SDGB A4+"),
+            array("ENVELOPE","SDGB A3+"),
+            array("ENVELOPE","SDGB WINDOW"),
+            array("ENVELOPE","SDHB A4"),
+            array("ENVELOPE","SDHB A4+"),
+            array("ENVELOPE","SDHB A3+"),
+            array("ENVELOPE","SDHB WINDOW"),
+            array("ENVELOPE","SDIL A4"),
+            array("ENVELOPE","SDIL A4+"),
+            array("ENVELOPE","SDIL A3+"),
+            array("ENVELOPE","SDIL WINDOW"),
+            array("ENVELOPE","SDSB A4"),
+            array("ENVELOPE","SDSB A4+"),
+            array("ENVELOPE","SDSB A3+"),
+            array("ENVELOPE","SDSB WINDOW"),
+            array("COMPANY PROFILE",null),
+            array("ANNUAL REPORT",null)
         );
 
 
@@ -212,6 +199,33 @@ class InventoryController extends Controller
 
         return $datas;
     }
+
+    public function addStock(Request $req){
+
+        $data = $req->input();
+
+        $currentdt = date('Y-m-d H:i:s');
+
+        $uuid = auth()->user()->id;
+        $uname = auth()->user()->name;
+
+      
+        $ticket = Stocklist::create([
+            'item' => $req->item,
+            'sub_item' => $req->sub_item,
+            'quantity' => "0",
+            'updated_by_name' => $uname,
+            'updated_by_id' => $uuid,
+            'created_at' => $currentdt,
+            'updated_at' => $currentdt,
+        ]);
+   
+
+        return redirect()->route('inventory');
+
+    }
+
+
 
     
     

@@ -2,7 +2,12 @@
 
 <!-- <h2 class="section-title">Pending Request Time Slot</h2> -->
 <br>
-@include('flash-message')   
+@include('flash-message')  
+@php
+$role = auth()->user()->role;
+$user = auth()->user();
+#echo request();
+@endphp
 
 {{-- <div class="row"> --}}
 
@@ -32,6 +37,7 @@
                                 <th>Description</th>
                                 <th>Date Time</th>
                                 <th>Status</th>
+                                <th>Action</th>
                               
                               
                             </tr>
@@ -56,25 +62,44 @@
                                     <b>{{ $pendingMeeting->description }}</b>
                                     </td>
                                     <td>
-                                    Start Date :
-                                    <b>{{ $pendingMeeting->startdate }}</b><br>
-                                    End Date :
-                                    <b>{{ $pendingMeeting->enddate }}</b>
+                                    Start Date :<br>
+                                    <b>{{ $pendingMeeting->startdate }}</b>
+                                   
                                     </td>
                                     <td>
                                     @if($pendingMeeting->job_status == "PENDING")
+                                   
+                                   <span class="badge badge-pill badge-warning">Pending</span>
+                                   @elseif($pendingMeeting->job_status == "APPROVED")
+                                
+                                   <span class="badge badge-pill badge-success">Approved</span>
+                                    @elseif($pendingMeeting->job_status == "REJECTED")
+                                    <span class="badge badge-pill badge-danger">Rejected</span>
+                                   @endif
+                                    </td>
+                                    <td>
+
+                                    @if($pendingMeeting->job_status != "PENDING")
 
                             
                                    
-                                <a role="button" href="{{route('appMeeting', $pendingMeeting->id)}}" class="btn btn-icon btn-success"><i class="fa fa-16px fa-check"></i></a>
-                                <a role="button" href="{{route('rejMeeting', $pendingMeeting->id)}}" class="btn btn-icon btn-danger"><i class="fa fa-16px fa-times"></i></a>
-                               
-                                    @elseif($pendingMeeting->job_status == "APPROVED")
-                                 
-                                    <span class="badge badge-pill badge-success">Approved</span>
-                                     @elseif($pendingMeeting->job_status == "REJECTED")
-                                     <span class="badge badge-pill badge-danger">Rejected</span>
-                                    @endif
+                                <a role="button " href="{{route('appMeeting', $pendingMeeting->id)}}" class="btn btn-icon btn-success disabled"><i class="fa fa-16px fa-check"></i></a>
+                                <a role="button" href="{{route('rejMeeting', $pendingMeeting->id)}}" class="btn btn-icon btn-danger disabled"><i class="fa fa-16px fa-times"></i></a>
+                                @endif
+
+                                @if($pendingMeeting->job_status == "PENDING")
+
+                            
+                                   
+                                <a role="button " href="{{route('appMeeting', $pendingMeeting->id)}}" class="btn btn-icon btn-success "><i class="fa fa-16px fa-check"></i></a>
+                                <a role="button" href="{{route('rejMeeting', $pendingMeeting->id)}}" class="btn btn-icon btn-danger "><i class="fa fa-16px fa-times"></i></a>
+                                @endif
+
+                                @if($role == "superadmin")
+                                <a role="button" href="{{route('meeting_edit', $pendingMeeting->id)}}" class="btn btn-icon btn-primary"><i class="fa fa-16px fa-pencil"></i></a>
+                                @endif
+                                    
+                                   
 
                                     </td>
                                    

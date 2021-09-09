@@ -63,7 +63,7 @@
                                 {{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y g:i:s a')}}
                             </td> --}}
                             <td>
-                                {{ $item->ticket_id }}
+                                {{ $item->ticket_id }} @if ($item->job_status == 'Urgent') &nbsp; <i class="fas fa-exclamation-circle text-danger">@endif
                             </td>
                             <td>
                                 {{ $item->job_name }}
