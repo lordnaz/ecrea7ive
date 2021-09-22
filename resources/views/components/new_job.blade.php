@@ -190,10 +190,6 @@ $details = Auth::user()->usersdetail;
                     </div>
 
                     <div class="form-group">
-                        <label>HOD</label>
-                        <input type="text" class="form-control" name="pic_hod" value="{{$details->hod ?? ''}}" required>
-                    </div>
-                    <div class="form-group">
                         <label>Branch</label>
                         <input type="text" class="form-control" name="pic_branch" value="{{$details->branch ?? ''}}" required>
                     </div>
@@ -203,6 +199,10 @@ $details = Auth::user()->usersdetail;
                         <input type="text" class="form-control" name="pic_department" value="{{$details->department ?? ''}}" required>
                     </div>
 
+                    <div class="form-group">
+                        <label>HOD</label>
+                        <input type="text" class="form-control" name="pic_hod" value="{{$details->hod ?? ''}}" required>
+                    </div>
                     
     
                     <div class="form-group" style="margin-bottom: 70px;">
