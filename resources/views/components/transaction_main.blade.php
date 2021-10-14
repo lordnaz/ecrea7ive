@@ -79,7 +79,7 @@ $(document).ready(function () {
             beginAtZero: true,
             stepSize: 50,
             callback: function(value, index, values) {
-                return '$' + value;
+                return 'RM' + value;
             }
             }
         }],

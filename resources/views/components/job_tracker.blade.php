@@ -246,12 +246,12 @@ $role = strtoupper(auth()->user()->role);
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4" class="text-primary">Ticket Status</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->ticket_status }}" placeholder="Email">
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->ticket_status }}">
                     <small class="text-muted">You can cancel job with CREATED ticket status</small>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4" class="text-primary">Ticket ID</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $ticket }}" placeholder="Password">
+                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $ticket }}">
                 </div>
             </div>
 
@@ -262,31 +262,31 @@ $role = strtoupper(auth()->user()->role);
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4" class="text-primary">Job Status</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->job_status }}" placeholder="Email">
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->job_status }}">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4" class="text-primary">Job Type</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $data->job_type }}" placeholder="Password">
+                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $data->job_type }}">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4" class="text-primary">Delivery Type</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->delivery_type }}" placeholder="Email">
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->delivery_type }}">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4" class="text-primary">Dateline</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->dateline }}" placeholder="Email">
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->dateline }}">
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputEmail4" class="text-primary">References (If any)</label>
-                    <input type="text" readonly class="form-control-plaintext" value="{{ $data->references }}" id="inputEmail4" placeholder="Email">
-                </div>
-                <div class="form-group col-md-6">
+                <!--<div class="form-group col-md-6">-->
+                <!--    <label for="inputEmail4" class="text-primary">References (If any)</label>-->
+                <!--    <input type="text" readonly class="form-control-plaintext" value="{{ $data->references }}" id="inputEmail4">-->
+                <!--</div>-->
+                <div class="form-group col-md-12">
                     <label for="inputPassword4" class="text-primary">Description</label>
-                    <textarea id="description" name="description" rows="3" class="form-control-plaintext" readonly placeholder="Description">{{ $data->description }}</textarea>
+                    <textarea id="description" name="description" rows="3" class="form-control-plaintext" readonly>{{ $data->description }}</textarea>
                 </div>
             </div>
 
@@ -295,34 +295,40 @@ $role = strtoupper(auth()->user()->role);
             <h1 class="section-title">Person In-Charge Details</h1>
             <br>
             <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="inputEmail4" class="text-primary">Company Name</label>
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->pic_company_name }}">
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4" class="text-primary">Name</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->pic_name }}" placeholder="Email">
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->pic_name }}">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4" class="text-primary">Email</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $data->pic_email }}" placeholder="Password">
+                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $data->pic_email }}">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4" class="text-primary">Contact No</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->pic_contact_no }}" placeholder="Email">
+                    <input type="text" readonly class="form-control-plaintext" id="inputEmail4" value="{{ $data->pic_contact_no }}">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4" class="text-primary">Office No</label>
-                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $data->pic_office_no }}" placeholder="Password">
+                    <input type="text" readonly class="form-control-plaintext" id="inputPassword4" value="{{ $data->pic_office_no }}">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="address" class="text-primary">Address</label>
-                <textarea id="address" name="address" rows="3" class="form-control-plaintext" readonly placeholder="Address">{{ $data->pic_address }}</textarea>
+                <textarea id="address" name="address" rows="3" class="form-control-plaintext" readonly>{{ $data->pic_address }}</textarea>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="postcode" class="text-primary">Postcode</label>
-                    <input type="text" readonly class="form-control-plaintext" id="postcode" value="{{ $data->pic_postcode }}" placeholder="Postcode">
+                    <input type="text" readonly class="form-control-plaintext" id="postcode" value="{{ $data->pic_postcode }}">
                 </div>
             </div>
 
@@ -354,7 +360,7 @@ $role = strtoupper(auth()->user()->role);
                                 @endforeach
                             </select>
 
-                            <div class="text-right" style="margin-top: 15px;">
+                            <div class="text-right" style="margin-top: 15px; margin-bottom: 15px;">
                                 <button type="submit" class="btn btn-warning text-dark">
                                     Assign
                                 </button>
@@ -366,14 +372,22 @@ $role = strtoupper(auth()->user()->role);
                 </div>
             @endif
             
+            @if ($role != "PRINTER")
+            <small class="text-danger">*Please Note: Make sure no confidential information after job has been assigned to external printer.</small>
+            @endif
+            
             {{-- <div class="ticket-divider"></div> --}}
 
             <div class="card border-0 shadow-none">
                 <div class="card-header">
-                  <h4 class="section-title">Ticket Activities</h4>
+                  <h4 class="section-title">Comment Section</h4>
                 </div>
                 <div class="card-body">
 
+                    @if ($role == "ADMIN" || $role == "SUPERADMIN")
+                    <small class="text-danger">*Please ensure any artwork attached has been <b>Watermarked</b>.</small>
+                    @endif
+                    
                     @if ($data->active == 1)
                         <form method="POST" action="{{ route('post_message') }}">
                             @csrf
@@ -395,9 +409,13 @@ $role = strtoupper(auth()->user()->role);
                     @endif
                     
 
+                    @if ($role != "PRINTER")
+                    <small class="text-danger">*Please ensure <b>Approved PR is Attached</b> for our references.</small>
+                    @endif
                     <div class="ticket-divider"></div>
 
                   <ul class="list-unstyled list-unstyled-border" style="margin-top: 15px;">
+                      
 
                     @foreach ($messages as $message)
 

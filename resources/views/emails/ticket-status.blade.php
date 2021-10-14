@@ -14,7 +14,7 @@ Email: {{ $details['pic_email'] }}
 @endcomponent
 
 
-@component('mail::button', ['url' => '/login', 'color' => 'success'])
+@component('mail::button', ['url' => 'https://portal.e-crea7ive.com/login', 'color' => 'success'])
 Login
 @endcomponent
 

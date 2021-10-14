@@ -111,7 +111,7 @@ $details = Auth::user()->usersdetail;
                         <p class="text-danger">Job that requires external printing will take at least 3 to 14 business days depending on the job requirement.</p>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="display: none !important;">
                         <label>References (If any)</label>
                         <input type="text" class="form-control" name="references">
                     </div>
@@ -190,10 +190,6 @@ $details = Auth::user()->usersdetail;
                     </div>
 
                     <div class="form-group">
-                        <label>HOD</label>
-                        <input type="text" class="form-control" name="pic_hod" value="{{$details->hod ?? ''}}" required>
-                    </div>
-                    <div class="form-group">
                         <label>Branch</label>
                         <input type="text" class="form-control" name="pic_branch" value="{{$details->branch ?? ''}}" required>
                     </div>
@@ -203,7 +199,12 @@ $details = Auth::user()->usersdetail;
                         <input type="text" class="form-control" name="pic_department" value="{{$details->department ?? ''}}" required>
                     </div>
 
+                    <div class="form-group">
+                        <label>HOD</label>
+                        <input type="text" class="form-control" name="pic_hod" value="{{$details->hod ?? ''}}" required>
+                    </div>
                     
+                    <small class="text-danger">*Please <b>Attach Approved PR</b> after submit this request in <b>Ticket Page Comment Section</b> for our references.</small>
     
                     <div class="form-group" style="margin-bottom: 70px;">
                         <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Submit</button>

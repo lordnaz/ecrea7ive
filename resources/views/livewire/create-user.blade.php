@@ -73,10 +73,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label>HOD</label>
-                        <input type="text" class="form-control" name="hod">
-                    </div>
-                    <div class="form-group">
                         <label>Branch</label>
                         <input type="text" class="form-control" name="branch">
                     </div>
@@ -86,6 +82,10 @@
                         <input type="text" class="form-control" name="department">
                     </div>
         
+                    <div class="form-group">
+                        <label>HOD</label>
+                        <input type="text" class="form-control" name="hod">
+                    </div>
                     
                     <div class="form-group" style="margin-bottom: 70px;">
                         <button type="submit" class="btn btn-icon icon-left btn-success float-right"><i class="fas fa-check"></i> Submit</button>
