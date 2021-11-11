@@ -85,7 +85,7 @@ $role = strtoupper(auth()->user()->role);
                         @if ($data->ticket_status == "CANCELLED")
                             <p><span class="text-primary font-weight-bold">Cancelled</span> by the Client. Please contact <span class="text-success">support@e-crea7ive.com</span> for reactivation.</p>
                         @else
-                            <p><span class="text-primary font-weight-bold">Created</span>. Waiting for designer to accept job.</p>
+                            <p><span class="text-primary font-weight-bold">Job Created</span>. The system has received your job request.</p>
                         @endif
                         
                         
@@ -93,7 +93,7 @@ $role = strtoupper(auth()->user()->role);
                             <div class="ticket-divider"></div>
                             <div class="text-center">
                                 <a href="{{route('acknowledged', $data->ticket_id)}}" class="btn btn-success">
-                                    Acknowledge
+                                    Acknowledge job
                                 </a>
                             </div>
                         @endif
@@ -116,9 +116,9 @@ $role = strtoupper(auth()->user()->role);
                         <div class="mb-2">
                             <span class="text-job"><b>STEP 2</b></span>
                         </div>
-                        <p><span class="text-primary font-weight-bold">Acknowledge</span>. Designer preparing the artwork & design.</p>
+                        <p><span class="text-primary font-weight-bold">Job in progress</span>. The designer is preparing the job request artwork.</p>
                         
-                        <div class="ticket-divider"></div>
+                        <!-- <div class="ticket-divider"></div> -->
                         @if ($data->ticket_status == "ACKNOWLEDGE" && $role == "ADMIN" && $data->active == 1)
                             <div class="ticket-divider"></div>
                             <div class="text-center">
@@ -131,7 +131,7 @@ $role = strtoupper(auth()->user()->role);
                 </div>
 
                 <div class="activity">
-                    @if ($data->ticket_status == "REVIEW" || $data->ticket_status == "APPROVED" || $data->ticket_status == "RECEIVED" || $data->ticket_status == "CLOSED")
+                    @if ($data->ticket_status == "REVIEW" || $data->ticket_status == "APPROVED" || $data->ticket_status == "RECEIVED" || $data->ticket_status == "CLOSED" || $data->ticket_status == "SENT")
                         <div class="activity-icon bg-danger text-white shadow-danger">
                             <i class="fas fa-bell"></i>
                         </div>
@@ -145,23 +145,25 @@ $role = strtoupper(auth()->user()->role);
                         <div class="mb-2">
                             <span class="text-job"><b>STEP 3</b></span>
                         </div>
-                        <p><span class="text-primary font-weight-bold">Reviewing</span>. Artwork review & approval processes undergoing.</p>
+                        <p><span class="text-primary font-weight-bold">Waiting for approval</span>. Artwork is prepared & awaiting client approval.</p>
 
-                        <div class="ticket-divider"></div>
+                        <!-- <div class="ticket-divider"></div> -->
 
                         @if ($data->ticket_status == "REVIEW" && $role == "USER" && $data->active == 1)
                             <div class="ticket-divider"></div>
                             <div class="text-center">
                                 <a href="{{route('approved', $data->ticket_id)}}" class="btn btn-primary">
-                                    Approve Design
+                                    Approve artwork
                                 </a>
                             </div>
                         @endif
                     </div>
                 </div>
                 
+
                 <div class="activity">
-                    @if ($data->ticket_status == "APPROVED" || $data->ticket_status == "RECEIVED" || $data->ticket_status == "CLOSED")
+                    
+                    @if ($data->ticket_status == "APPROVED" || $data->ticket_status == "RECEIVED" || $data->ticket_status == "CLOSED"|| $data->ticket_status == "SENT")
                         <div class="activity-icon bg-danger text-white shadow-danger">
                             <i class="fas fa-bell"></i>
                         </div>
@@ -174,14 +176,45 @@ $role = strtoupper(auth()->user()->role);
                         <div class="mb-2">
                             <span class="text-job"><b>STEP 4</b></span>
                         </div>
-                        <p><span class="text-primary font-weight-bold">Delivery/Collection</span>. Design approved by client, now preparation task for final release.</p>
+                        <p><span class="text-primary font-weight-bold">Final artwork preparation/delivery</span>. The designer is preparing the final artwork to be sent to the client.</p>
 
-                        <div class="ticket-divider"></div>
-                        @if ($data->ticket_status == "APPROVED" && $role == "USER" && $data->active == 1)
+                        <!-- <div class="ticket-divider"></div> -->
+                        @if ($data->ticket_status == "APPROVED" && $role == "ADMIN" && $data->active == 1)
+                            <div class="ticket-divider"></div>
+                            <div class="text-center">
+                                <a href="{{route('sent', $data->ticket_id)}}" class="btn btn-primary">
+                                Final artwork sent 
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+
+
+
+                <div class="activity">
+                    @if ($data->ticket_status == "SENT" || $data->ticket_status == "RECEIVED" || $data->ticket_status == "CLOSED")
+                        <div class="activity-icon bg-danger text-white shadow-danger">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    @else 
+                        <div class="activity-icon bg-secondary text-white shadow-secondary">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    @endif
+                    <div class="activity-detail border bg-whitesmoke">
+                        <div class="mb-2">
+                            <span class="text-job"><b>STEP 5</b></span>
+                        </div>
+                        <p><span class="text-primary font-weight-bold">Collection process</span>. Final artwork has been sent to the client.</p>
+
+                        <!-- <div class="ticket-divider"></div> -->
+                        @if ($data->ticket_status == "SENT" && $role == "USER" && $data->active == 1)
                             <div class="ticket-divider"></div>
                             <div class="text-center">
                                 <a href="{{route('received', $data->ticket_id)}}" class="btn btn-primary">
-                                    Item Received
+                                    Job Received
                                 </a>
                             </div>
                         @endif
@@ -200,11 +233,11 @@ $role = strtoupper(auth()->user()->role);
                     @endif
                     <div class="activity-detail border bg-whitesmoke">
                         <div class="mb-2">
-                            <span class="text-job"><b>STEP 5</b></span>
+                            <span class="text-job"><b>STEP 6</b></span>
                         </div>
-                        <p><span class="text-primary font-weight-bold">Complete</span>. Order received and closed. Thank You!</p>
+                        <p><span class="text-primary font-weight-bold">Job completed</span>. Job received by the client.</p>
 
-                        <div class="ticket-divider"></div>
+                        <!-- <div class="ticket-divider"></div> -->
                         @if ($data->ticket_status == "RECEIVED" && $role == "ADMIN" && $data->active == 1)
                             <div class="ticket-divider"></div>
                             <div class="text-center">

@@ -101,6 +101,7 @@ Route::group([ "middleware" => ['auth:sanctum', 'verified'] ], function() {
     Route::get('/acknowledged/{ticket_id}', [ JobController::class, "acknowledged" ])->name('acknowledged');
     Route::get('/prepared/{ticket_id}', [ JobController::class, "prepared" ])->name('prepared');
     Route::get('/approved/{ticket_id}', [ JobController::class, "approved" ])->name('approved');
+    Route::get('/sent/{ticket_id}', [ JobController::class, "sent" ])->name('sent');
     Route::get('/received/{ticket_id}', [ JobController::class, "received" ])->name('received');
     Route::get('/closed/{ticket_id}', [ JobController::class, "closed" ])->name('closed');
 

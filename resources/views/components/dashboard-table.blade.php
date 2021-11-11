@@ -110,6 +110,14 @@
                                         </div>
                                     </div>
 
+                                    @elseif($item->ticket_status == "SENT")
+                                    {{ $item->ticket_status }}
+                                    <div class="progress mb-3" style="height: 10px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" data-width="80%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                            <small>80%</small> 
+                                        </div>
+                                    </div>
+
                                 @elseif($item->ticket_status == "RECEIVED")
                                     {{ $item->ticket_status }}
                                     <div class="progress mb-3" style="height: 10px;">

@@ -371,6 +371,67 @@ class JobController extends Controller
     }
 
 
+
+    public function sent($ticket_id){
+
+        $uuid = auth()->user()->id;
+        $uname = auth()->user()->name;
+        $urole = auth()->user()->role;
+        $currentdt = date('Y-m-d H:i:s');
+        
+        // update job status
+        Ticket::where('ticket_id', $ticket_id)
+                ->update([
+                    'ticket_status' => "SENT", 
+                    'updated_at' => $currentdt
+                ]);
+
+        $posts = Post::create([
+            'poster_name' => $uname,
+            'role' => $urole,
+            'ticket_id' => $ticket_id,
+            'created_by' => $uuid
+        ]);
+
+        $postsId = $posts->id;
+
+        // return $postsId;
+
+        // die();
+
+        TrixRichText::create([
+            'field' => 'system',
+            'model_type' => 'system',
+            'model_id' => $postsId,
+            'content' => '<div><i>[System Alert]&nbsp;</i> Artwork has been <span class="text-success">Delivered</span> by '.$uname.'. Waiting client to receive.</div>'
+        ]);
+
+
+        // Email Section 
+        $ticketObj = Ticket::where('ticket_id', $ticket_id)->first();
+
+        $receiver_name = $ticketObj['pic_name'];
+        $receiver_email = $ticketObj['pic_email'];
+        $job_status = $ticketObj['ticket_status'];
+
+        $details = [
+            'pic_name' => $receiver_name,
+            'pic_email' => $receiver_email,
+            'ticket_id' => $ticket_id,
+            'ticket_status' => $job_status
+        ];
+
+        // $test_email = 'nazrul.workspace@gmail.com';
+
+        Mail::to($receiver_email)->send(new TicketStatusEmail($details));
+        // End of Email Section 
+
+
+        return redirect()->route('ticket', $ticket_id);
+
+    }
+
+
     public function received($ticket_id){
 
         $uuid = auth()->user()->id;
