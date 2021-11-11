@@ -365,7 +365,7 @@ $role = strtoupper(auth()->user()->role);
                 </div>
             </div>
 
-            @if ($role == "ADMIN" && $data->active == 1)
+            @if ($role == "ADMIN" && $data->active == 1 && $data->ticket_status != "RECEIVED")
                 <div class="form-group">
                     <div class="control-label">If you wished to assign printing job to external.</div>
                     <label class="mt-2">
